@@ -25,6 +25,13 @@ class WorkflowOrchestrator:
         if run_id:
             self.run_id = run_id
             self.state = load_state(run_id)
+            if self.state.get("status") == "success":
+                raise ValueError(f"Run {run_id} completed successfully and cannot be resumed.")
+            elif self.state.get("status") == "failed":
+                print(f"🔄 Resuming a failed run. Resetting attempt counter.")
+                self.state["status"] = "running"
+                self.state["attempts"] = 1
+                save_state(self.run_id, self.state)
         else:
             if not task:
                 raise ValueError("Must provide a task description to initialize a new run.")
@@ -52,24 +59,30 @@ class WorkflowOrchestrator:
                 try:
                     result = module.run_phase(self.run_id, self.state, phase_config)
                     
-                    if phase_num == 6 and "STATUS: REJECTED" in result:
-                        attempts = self.state.get("attempts", 1)
-                        print(f"\n⚠️ Phase 6 (Auditor) REJECTED the implementation! (Attempt {attempts}/3)")
-                        if attempts < 3:
-                            # Save the critique for the Executor
-                            from src.state import write_run_file
-                            write_run_file(self.run_id, "feedback_report.md", result)
-                            
-                            # Reset back to Phase 4 (Execute) and increment attempt count
-                            self.state["current_phase"] = 4
-                            self.state["attempts"] = attempts + 1
-                            save_state(self.run_id, self.state)
-                            
-                            # Recurse to run execution again with feedback context
-                            return self.run_all()
-                        else:
-                            print("❌ Maximum self-correction attempts reached (3/3). Stopping.")
-                            return False
+                    if phase_num == 6:
+                        # Fail-closed check: Only proceed if status is explicitly APPROVED
+                        is_approved = "STATUS: APPROVED" in result
+                        
+                        if not is_approved:
+                            attempts = self.state.get("attempts", 1)
+                            print(f"\n⚠️ Phase 6 (Auditor) REJECTED or failed to approve the implementation! (Attempt {attempts}/3)")
+                            if attempts < 3:
+                                # Save the critique for the Executor
+                                from src.state import write_run_file
+                                write_run_file(self.run_id, "feedback_report.md", result)
+                                
+                                # Reset back to Phase 4 (Execute) and increment attempt count
+                                self.state["current_phase"] = 4
+                                self.state["attempts"] = attempts + 1
+                                save_state(self.run_id, self.state)
+                                
+                                # Recurse to run execution again with feedback context
+                                return self.run_all()
+                            else:
+                                print("❌ Maximum self-correction attempts reached (3/3). Stopping.")
+                                self.state["status"] = "failed"
+                                save_state(self.run_id, self.state)
+                                return False
                     
                     self.state["current_phase"] = phase_num + 1
                     save_state(self.run_id, self.state)
@@ -81,4 +94,6 @@ class WorkflowOrchestrator:
         print(f"\n==================================================")
         print(f"🎉 Workflow completed successfully!")
         print(f"==================================================\n")
+        self.state["status"] = "success"
+        save_state(self.run_id, self.state)
         return True

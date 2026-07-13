@@ -14,6 +14,7 @@ def init_run(task_description):
         "task": task_description,
         "current_phase": 1,
         "attempts": 1,
+        "status": "running",
         "history": {
             "1_research": None,
             "2_plan": None,
