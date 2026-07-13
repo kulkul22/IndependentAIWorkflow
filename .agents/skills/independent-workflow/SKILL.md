@@ -10,13 +10,16 @@ You are the Orchestrator for the Independent AI Workflow project. The user has i
 **CRITICAL INSTRUCTION:** In this workflow, you must dynamically switch personas and adapt specialized skills for each phase to ensure enterprise-grade quality.
 
 ## Modes of Execution
-When the user invokes this skill, BEFORE starting Phase 1, you MUST ask the user which execution mode they want to use:
-1. **Antigravity Only**: Execute all phases yourself without calling Claude CLI.
-2. **Fast**: Call Claude CLI for Plan Review (Phase 2.5), but skip Code Audit (Phase 6).
-3. **Auto**: Call Claude CLI for Plan Review (Phase 2.5). After Phase 5 (Test), stop and ask the user if they want to run Code Audit (Phase 6).
-4. **Full**: Automatically call Claude CLI for both Plan Review (Phase 2.5) and Code Audit (Phase 6).
+When the user invokes this skill, BEFORE starting Phase 1, you MUST explicitly present the following summary table to the user and ask them which mode they want to use:
 
-Wait for the user's response before proceeding.
+| Mode | Plan Review | Code Audit | Cost | Time |
+|---|:---:|:---:|---|---|
+| **1. Antigravity Only** | ❌ | ❌ | $0 | ~5 min |
+| **2. Fast** | ✅ Claude CLI | ❌ | ~$0.003 | ~10 min |
+| **3. Auto** | ✅ Claude CLI | ❓ Ask after test | ~$0.01–0.10 | ~15 min |
+| **4. Full** | ✅ Claude CLI | ✅ Claude CLI | ~$0.05–0.10 | ~20 min |
+
+*Wait for the user to reply with their choice (1, 2, 3, or 4) before proceeding.*
 
 ## Run Environment
 For each task, create a unique directory inside the project's `runs/` folder with the current timestamp (e.g. `runs/run_20260713_150000/`).
