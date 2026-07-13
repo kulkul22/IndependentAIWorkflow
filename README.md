@@ -71,66 +71,7 @@ PHASE 7 ────────────────────────
 
 ## Workflow Architecture
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Worker as Antigravity (Worker)
-    participant Advisor as Claude CLI (Advisor)
-
-    User->>Worker: @hybrid-workflow [Task]
-    Worker->>User: Prompt for Mode (1-4)
-    User-->>Worker: Selects Mode
-    
-    rect rgb(30, 40, 50)
-        Note over Worker: Phase 1: Research
-        Worker->>Worker: Generate research_notes.md
-    end
-
-    rect rgb(30, 40, 50)
-        Note over Worker,Advisor: Phase 2: Analyze & Plan
-        Worker->>Worker: Generate master_plan.md
-        opt If Mode 4
-            Worker->>Advisor: call_advisor.py --mode architect
-            Advisor-->>Worker: Architecture Feedback
-            Worker->>Worker: Revise master_plan.md
-        end
-    end
-
-    rect rgb(30, 40, 50)
-        Note over Worker: Phase 3: Task Breakdown
-        Worker->>Worker: Generate task.md
-    end
-
-    rect rgb(30, 40, 50)
-        Note over Worker,Advisor: Phase 4 & 5: Execute, Test & Debug
-        loop Task Implementation
-            Worker->>Worker: Write Code & Run Tests
-            alt Test Fails > 2 times & Mode >= 3
-                Worker->>Advisor: call_advisor.py --mode debug (Context Compressed)
-                Advisor-->>Worker: Root Cause & Fix Guide
-                Worker->>Worker: Apply Fix
-            end
-        end
-    end
-
-    rect rgb(30, 40, 50)
-        Note over Worker,Advisor: Phase 6: Code Audit
-        opt If Mode >= 2
-            Worker->>Advisor: call_advisor.py --mode audit
-            Advisor-->>Worker: STATUS: APPROVED / REJECTED
-            opt If REJECTED
-                Worker->>Worker: Loop back to Phase 4 (Max 3 times)
-            end
-        end
-    end
-
-    rect rgb(30, 40, 50)
-        Note over Worker: Phase 7: Report
-        Worker->>Worker: Generate walkthrough.md & advisor_log.md
-    end
-    
-    Worker->>User: Task Completed
-```
+![Independent Workflow Architecture Diagram](docs/assets/workflow.png)
 
 ## Team Roles & Personas
 
