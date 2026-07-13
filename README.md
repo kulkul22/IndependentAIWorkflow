@@ -71,31 +71,9 @@ PHASE 7 ────────────────────────
   Output : walkthrough.md
 ```
 
-## Workflow Diagram
+## Workflow Architecture
 
-```mermaid
-flowchart TD
-    Start(["/independent_workflow 'task'"]) --> Mode{"Choose Mode (1-4)"}
-
-    Mode --> P1["[Phase 1] Research\n(Antigravity)"]
-    P1 --> P2["[Phase 2] Analyze & Plan\n(Antigravity)"]
-
-    P2 -->|"Modes 2, 3, 4"| P25{"[Phase 2.5] Plan Review\n(Claude CLI)"}
-    P25 -->|"✅ APPROVED"| P3["[Phase 3] Break Down Tasks\n(Antigravity)"]
-    P25 -.->|"✏️ REVISE"| P2
-
-    P2 -->|"Mode 1"| P3
-    P3 --> P4["[Phase 4] Execute Code\n(Antigravity)"]
-    P4 --> P5["[Phase 5] Test & Validate\n(Antigravity)"]
-
-    P5 -->|"Modes 3, 4"| P6{"[Phase 6] Code Audit\n(Claude CLI)"}
-    P6 -->|"✅ APPROVED"| P7["[Phase 7] Report\n(Antigravity)"]
-    P6 -.->|"❌ REJECTED (max 3)"| P4
-
-    P5 -->|"Modes 1, 2"| P7
-
-    P7 --> Done(["✅ Complete"])
-```
+![Independent Workflow Architecture Diagram](docs/assets/workflow.png)
 
 ---
 
