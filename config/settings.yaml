@@ -1,0 +1,23 @@
+# Model routing settings for Independent AI Workflow
+models:
+  phase1_research:
+    provider: gemini
+    name: gemini-2.5-flash
+  phase2_plan:
+    provider: anthropic
+    name: claude-3-5-sonnet-latest
+  phase3_tasks:
+    provider: gemini
+    name: gemini-2.5-flash
+  phase4_execute:
+    provider: deepseek
+    name: deepseek-chat  # DeepSeek V3/Pro
+  phase5_test:
+    provider: gemini
+    name: gemini-2.5-flash
+  phase6_audit:
+    provider: anthropic
+    name: claude-3-5-sonnet-latest
+  phase7_report:
+    provider: gemini
+    name: gemini-2.5-flash
