@@ -70,13 +70,28 @@ def run_phase(run_id, state, config):
     
     try:
         data = json.loads(execution_result.strip())
+        
+        # Clean outputs_dir to prevent stale files
+        import shutil
+        if os.path.exists(outputs_dir):
+            shutil.rmtree(outputs_dir)
+        os.makedirs(outputs_dir, exist_ok=True)
+        
         for file_info in data.get("files", []):
             file_path = file_info["path"]
             file_content = file_info["content"]
             
-            # Ensure path is relative and safe
+            # Ensure path is relative and safe (prevent path traversal)
             safe_path = os.path.normpath(file_path).lstrip(os.sep)
-            full_dest = os.path.join(outputs_dir, safe_path)
+            if ".." in safe_path.split(os.sep):
+                print(f"    [-] Bypassing unsafe file path containing '..': {file_path}")
+                continue
+                
+            full_dest = os.path.abspath(os.path.join(outputs_dir, safe_path))
+            if not full_dest.startswith(os.path.abspath(outputs_dir)):
+                print(f"    [-] Bypassing unsafe path traversal attempt: {file_path}")
+                continue
+            
             os.makedirs(os.path.dirname(full_dest), exist_ok=True)
             
             with open(full_dest, "w", encoding="utf-8") as f:
@@ -86,6 +101,9 @@ def run_phase(run_id, state, config):
         state["history"]["4_execute"] = "outputs"
     except Exception as e:
         print(f"[-] Failed to parse JSON execution output: {e}. Raw response saved.")
+        import shutil
+        if os.path.exists(outputs_dir):
+            shutil.rmtree(outputs_dir)
         state["history"]["4_execute"] = "execution_raw.json"
         
     print(f"[+] Phase 4 Complete.")
