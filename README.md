@@ -71,7 +71,7 @@ PHASE 7 ────────────────────────
 
 ## Workflow Architecture
 
-![Hybrid Workflow Architecture Diagram](docs/assets/hybrid_workflow.png)
+![Hybrid Workflow Architecture Diagram](docs/assets/hybrid_workflow.svg)
 
 ## Team Roles & Personas
 
