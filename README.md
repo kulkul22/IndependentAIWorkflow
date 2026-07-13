@@ -75,6 +75,10 @@ PHASE 7 ────────────────────────
 
 ![Independent Workflow Architecture Diagram](docs/assets/workflow.png)
 
+## Team Roles & Personas
+
+![Team Roles Workflow](docs/assets/team_roles.png)
+
 ---
 
 ## Output Directory Layout
