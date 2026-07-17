@@ -95,7 +95,7 @@ PHASE 7.5 ───────────────────────�
 
 ## Team Roles & Personas
 
-![Team Roles Workflow](docs/assets/team_roles.svg)
+![Team Roles Workflow](docs/assets/team_roles.svg?v=2)
 
 ---
 
