@@ -18,6 +18,7 @@ python scripts/javis_daemon.py
 ```text
 @hybrid-workflow "Describe your task here..."
 ```
+*(Note: The workflow will automatically start a local Web Dashboard at `http://localhost:8000/` so you can monitor the agent's progress in real-time).*
 
 ---
 
@@ -107,6 +108,7 @@ brain/
 │   ├── content-ideas/
 │   ├── journal/
 │   └── projects/
+dashboard/                    # Real-time Web Dashboard (auto-started on port 8000)
 runs/
 └── run_YYYYMMDD_HHMMSS/
     ├── research_notes.md     # Phase 1 — research findings
