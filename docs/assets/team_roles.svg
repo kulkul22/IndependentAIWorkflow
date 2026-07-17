@@ -35,9 +35,9 @@
     <rect x="50" y="200" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="95" cy="247" r="22" fill="#89b4fa"/>
     <text x="95" y="254" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">0</text>
-    <text x="135" y="239" font-size="18" font-weight="700" fill="#cdd6f4">Brain Sync</text>
-    <text x="135" y="262" font-size="13" font-weight="600" fill="#89b4fa">Persona: Javis Daemon</text>
-    <text x="135" y="280" font-size="13" fill="#cdd6f4" opacity="0.75">Retrieves context from Second Brain</text>
+    <text x="135" y="237" font-size="20" font-weight="700" fill="#cdd6f4">Brain Sync</text>
+    <text x="135" y="261" font-size="15" font-weight="600" fill="#89b4fa">Persona: Javis Daemon</text>
+    <text x="135" y="281" font-size="14" fill="#cdd6f4" opacity="0.85">Retrieves context from Second Brain</text>
   </g>
 
   <!-- Phase 1 -->
@@ -45,9 +45,9 @@
     <rect x="50" y="315" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="95" cy="362" r="22" fill="#89b4fa"/>
     <text x="95" y="369" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">1</text>
-    <text x="135" y="354" font-size="18" font-weight="700" fill="#cdd6f4">Research</text>
-    <text x="135" y="377" font-size="13" font-weight="600" fill="#89b4fa">Persona: Senior Systems Analyst</text>
-    <text x="135" y="395" font-size="13" fill="#cdd6f4" opacity="0.75">Explores dependencies</text>
+    <text x="135" y="352" font-size="20" font-weight="700" fill="#cdd6f4">Research</text>
+    <text x="135" y="376" font-size="15" font-weight="600" fill="#89b4fa">Persona: Senior Systems Analyst</text>
+    <text x="135" y="396" font-size="14" fill="#cdd6f4" opacity="0.85">Explores dependencies</text>
   </g>
 
   <!-- Phase 2 -->
@@ -55,9 +55,9 @@
     <rect x="50" y="430" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="95" cy="477" r="22" fill="#89b4fa"/>
     <text x="95" y="484" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">2</text>
-    <text x="135" y="469" font-size="18" font-weight="700" fill="#cdd6f4">Analyze &amp; Plan</text>
-    <text x="135" y="492" font-size="13" font-weight="600" fill="#89b4fa">Persona: Lead Software Architect</text>
-    <text x="135" y="510" font-size="13" fill="#cdd6f4" opacity="0.75">Designs master_plan.md</text>
+    <text x="135" y="467" font-size="20" font-weight="700" fill="#cdd6f4">Analyze &amp; Plan</text>
+    <text x="135" y="491" font-size="15" font-weight="600" fill="#89b4fa">Persona: Lead Software Architect</text>
+    <text x="135" y="511" font-size="14" fill="#cdd6f4" opacity="0.85">Designs master_plan.md</text>
   </g>
 
   <!-- Phase 3 -->
@@ -65,9 +65,9 @@
     <rect x="50" y="545" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="95" cy="592" r="22" fill="#89b4fa"/>
     <text x="95" y="599" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">3</text>
-    <text x="135" y="584" font-size="18" font-weight="700" fill="#cdd6f4">Break Down Tasks</text>
-    <text x="135" y="607" font-size="13" font-weight="600" fill="#89b4fa">Persona: Agile Scrum Master</text>
-    <text x="135" y="625" font-size="13" fill="#cdd6f4" opacity="0.75">Generates execution backlog</text>
+    <text x="135" y="582" font-size="20" font-weight="700" fill="#cdd6f4">Break Down Tasks</text>
+    <text x="135" y="606" font-size="15" font-weight="600" fill="#89b4fa">Persona: Agile Scrum Master</text>
+    <text x="135" y="626" font-size="14" fill="#cdd6f4" opacity="0.85">Generates execution backlog</text>
   </g>
 
   <!-- Phase 7 -->
@@ -75,9 +75,9 @@
     <rect x="50" y="775" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="95" cy="822" r="22" fill="#89b4fa"/>
     <text x="95" y="829" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">7</text>
-    <text x="135" y="814" font-size="18" font-weight="700" fill="#cdd6f4">Report</text>
-    <text x="135" y="837" font-size="13" font-weight="600" fill="#89b4fa">Persona: Technical Writer</text>
-    <text x="135" y="855" font-size="13" fill="#cdd6f4" opacity="0.75">Summarizes walkthrough results</text>
+    <text x="135" y="812" font-size="20" font-weight="700" fill="#cdd6f4">Report</text>
+    <text x="135" y="836" font-size="15" font-weight="600" fill="#89b4fa">Persona: Technical Writer</text>
+    <text x="135" y="856" font-size="14" fill="#cdd6f4" opacity="0.85">Summarizes walkthrough results</text>
   </g>
 
   <!-- Phase 7.5 -->
@@ -85,9 +85,9 @@
     <rect x="50" y="890" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
     <circle cx="95" cy="937" r="22" fill="#89b4fa"/>
     <text x="95" y="943" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">7.5</text>
-    <text x="135" y="929" font-size="18" font-weight="700" fill="#cdd6f4">Knowledge Archive</text>
-    <text x="135" y="952" font-size="13" font-weight="600" fill="#89b4fa">Persona: Librarian</text>
-    <text x="135" y="970" font-size="13" fill="#cdd6f4" opacity="0.75">Indexes new lessons into ChromaDB</text>
+    <text x="135" y="927" font-size="20" font-weight="700" fill="#cdd6f4">Knowledge Archive</text>
+    <text x="135" y="951" font-size="15" font-weight="600" fill="#89b4fa">Persona: Librarian</text>
+    <text x="135" y="971" font-size="14" fill="#cdd6f4" opacity="0.85">Indexes new lessons into ChromaDB</text>
   </g>
 
   <!-- CODEX & GEMINI CARDS -->
@@ -96,9 +96,9 @@
     <rect x="430" y="545" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="475" cy="592" r="22" fill="#a6e3a1"/>
     <text x="475" y="599" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">4</text>
-    <text x="515" y="584" font-size="18" font-weight="700" fill="#cdd6f4">Execute Code</text>
-    <text x="515" y="607" font-size="13" font-weight="600" fill="#a6e3a1">Persona: Codex-Alex</text>
-    <text x="515" y="625" font-size="13" fill="#cdd6f4" opacity="0.75">Implements source files</text>
+    <text x="515" y="582" font-size="20" font-weight="700" fill="#cdd6f4">Execute Code</text>
+    <text x="515" y="606" font-size="15" font-weight="600" fill="#a6e3a1">Persona: Codex-Alex</text>
+    <text x="515" y="626" font-size="14" fill="#cdd6f4" opacity="0.85">Implements source files</text>
   </g>
 
   <!-- Phase 5 -->
@@ -106,9 +106,9 @@
     <rect x="430" y="660" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="475" cy="707" r="22" fill="#a6e3a1"/>
     <text x="475" y="714" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">5</text>
-    <text x="515" y="699" font-size="18" font-weight="700" fill="#cdd6f4">Test &amp; Validate</text>
-    <text x="515" y="722" font-size="13" font-weight="600" fill="#a6e3a1">Persona: Gemini-Tester1</text>
-    <text x="515" y="740" font-size="13" fill="#cdd6f4" opacity="0.75">Runs and validates test suite</text>
+    <text x="515" y="697" font-size="20" font-weight="700" fill="#cdd6f4">Test &amp; Validate</text>
+    <text x="515" y="721" font-size="15" font-weight="600" fill="#a6e3a1">Persona: Gemini-Tester1</text>
+    <text x="515" y="741" font-size="14" fill="#cdd6f4" opacity="0.85">Runs and validates test suite</text>
   </g>
 
   <!-- CLAUDE CARDS -->
@@ -117,9 +117,9 @@
     <rect x="810" y="430" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="855" cy="477" r="22" fill="#f38ba8"/>
     <text x="855" y="483" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">2.5</text>
-    <text x="895" y="469" font-size="18" font-weight="700" fill="#cdd6f4">Plan Review</text>
-    <text x="895" y="492" font-size="13" font-weight="600" fill="#f38ba8">Persona: Principal Architect</text>
-    <text x="895" y="510" font-size="13" fill="#cdd6f4" opacity="0.75">Audits architecture (Mode 4)</text>
+    <text x="895" y="467" font-size="20" font-weight="700" fill="#cdd6f4">Plan Review</text>
+    <text x="895" y="491" font-size="15" font-weight="600" fill="#f38ba8">Persona: Principal Architect</text>
+    <text x="895" y="511" font-size="14" fill="#cdd6f4" opacity="0.85">Audits architecture (Mode 4)</text>
   </g>
 
   <!-- Debug Escalate -->
@@ -127,9 +127,9 @@
     <rect x="810" y="545" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
     <circle cx="855" cy="592" r="22" fill="#f38ba8"/>
     <text x="855" y="599" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">⚡</text>
-    <text x="895" y="584" font-size="18" font-weight="700" fill="#cdd6f4">Debug Escalate</text>
-    <text x="895" y="607" font-size="13" font-weight="600" fill="#f38ba8">Persona: Expert Troubleshooter</text>
-    <text x="895" y="625" font-size="13" fill="#cdd6f4" opacity="0.75">Called if tests fail &gt; 2 times</text>
+    <text x="895" y="582" font-size="20" font-weight="700" fill="#cdd6f4">Debug Escalate</text>
+    <text x="895" y="606" font-size="15" font-weight="600" fill="#f38ba8">Persona: Expert Troubleshooter</text>
+    <text x="895" y="626" font-size="14" fill="#cdd6f4" opacity="0.85">Called if tests fail &gt; 2 times</text>
   </g>
 
   <!-- Phase 6 -->
@@ -137,9 +137,9 @@
     <rect x="810" y="660" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
     <circle cx="855" cy="707" r="22" fill="#f38ba8"/>
     <text x="855" y="714" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">6</text>
-    <text x="895" y="699" font-size="18" font-weight="700" fill="#cdd6f4">Code Audit</text>
-    <text x="895" y="722" font-size="13" font-weight="600" fill="#f38ba8">Persona: Security Auditor</text>
-    <text x="895" y="740" font-size="13" fill="#cdd6f4" opacity="0.75">Checks diffs &amp; validates quality</text>
+    <text x="895" y="697" font-size="20" font-weight="700" fill="#cdd6f4">Code Audit</text>
+    <text x="895" y="721" font-size="15" font-weight="600" fill="#f38ba8">Persona: Security Auditor</text>
+    <text x="895" y="741" font-size="14" fill="#cdd6f4" opacity="0.85">Checks diffs &amp; validates quality</text>
   </g>
 
   <!-- Vertical flow arrows: Antigravity column -->
