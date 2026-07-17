@@ -5,133 +5,163 @@
     </filter>
   </defs>
 
+  <!-- Background -->
   <rect x="0" y="0" width="1200" height="1000" fill="#1e1e2e"/>
 
-  <text x="600" y="40" text-anchor="middle" font-size="30" font-weight="700" fill="#89b4fa">Team Roles &amp; Personas</text>
-  <text x="600" y="65" text-anchor="middle" font-size="14" fill="#cdd6f4" opacity="0.75">Worker AI executes the lifecycle locally · Advisor AI is consulted on schedule or escalation</text>
+  <text x="600" y="45" text-anchor="middle" font-size="32" font-weight="700" fill="#cdd6f4">Team Roles &amp; Personas</text>
+  <text x="600" y="70" text-anchor="middle" font-size="16" fill="#a6adc8" opacity="0.8">The specialized AI models executing the Hybrid Workflow</text>
 
-  <!-- Column headers -->
-  <rect x="180" y="90" width="340" height="55" rx="14" fill="#89b4fa" filter="url(#softShadow)"/>
-  <text x="350" y="115" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">WORKER AI (Antigravity &amp; Javis OS)</text>
-  <text x="350" y="135" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Local · Cost-Free · Core Execution</text>
+  <!-- ================= COLUMNS ================= -->
+  <!-- ANTIGRAVITY -->
+  <rect x="50" y="110" width="340" height="55" rx="14" fill="#89b4fa" filter="url(#softShadow)"/>
+  <text x="220" y="135" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">ANTIGRAVITY (Orchestrator)</text>
+  <text x="220" y="155" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Planning, Management &amp; Reporting</text>
 
-  <rect x="680" y="90" width="340" height="55" rx="14" fill="#f38ba8" filter="url(#softShadow)"/>
-  <text x="850" y="115" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">ADVISOR AI (Claude CLI)</text>
-  <text x="850" y="135" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Expert · Pay-per-call · On Demand</text>
+  <!-- CODEX & GEMINI -->
+  <rect x="430" y="110" width="340" height="55" rx="14" fill="#a6e3a1" filter="url(#softShadow)"/>
+  <text x="600" y="135" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">CODEX &amp; GEMINI (Sub-agents)</text>
+  <text x="600" y="155" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Code Execution &amp; Testing</text>
 
-  <!-- ================= WORKER COLUMN ================= -->
-  <!-- Phase 0: Brain Sync -->
+  <!-- CLAUDE -->
+  <rect x="810" y="110" width="340" height="55" rx="14" fill="#f38ba8" filter="url(#softShadow)"/>
+  <text x="980" y="135" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">CLAUDE (Advisor)</text>
+  <text x="980" y="155" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Expert Review &amp; Debugging</text>
+
+  <!-- ================= CARDS ================= -->
+
+  <!-- ANTIGRAVITY CARDS -->
+  <!-- Phase 0 -->
   <g>
-    <rect x="180" y="170" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="225" cy="217" r="22" fill="#a6e3a1"/>
-    <text x="225" y="224" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">0</text>
-    <text x="265" y="209" font-size="18" font-weight="700" fill="#cdd6f4">Brain Sync</text>
-    <text x="265" y="232" font-size="13.5" fill="#a6e3a1" font-weight="600">Persona: Javis Daemon</text>
-    <text x="265" y="250" font-size="12.5" fill="#cdd6f4" opacity="0.8">Injects context from Second Brain</text>
+    <rect x="50" y="200" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="95" cy="247" r="22" fill="#89b4fa"/>
+    <text x="95" y="254" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">0</text>
+    <text x="135" y="239" font-size="18" font-weight="700" fill="#cdd6f4">Brain Sync</text>
+    <text x="135" y="262" font-size="13" font-weight="600" fill="#89b4fa">Persona: Javis Daemon</text>
+    <text x="135" y="280" font-size="13" fill="#cdd6f4" opacity="0.75">Retrieves context from Second Brain</text>
   </g>
 
-  <!-- Phase 1: Research -->
+  <!-- Phase 1 -->
   <g>
-    <rect x="180" y="285" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="225" cy="332" r="22" fill="#89b4fa"/>
-    <text x="225" y="339" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">1</text>
-    <text x="265" y="324" font-size="18" font-weight="700" fill="#cdd6f4">Research</text>
-    <text x="265" y="347" font-size="13.5" fill="#89b4fa" font-weight="600">Persona: Senior Systems Analyst</text>
-    <text x="265" y="365" font-size="12.5" fill="#cdd6f4" opacity="0.8">Gathers context and dependencies</text>
+    <rect x="50" y="315" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="95" cy="362" r="22" fill="#89b4fa"/>
+    <text x="95" y="369" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">1</text>
+    <text x="135" y="354" font-size="18" font-weight="700" fill="#cdd6f4">Research</text>
+    <text x="135" y="377" font-size="13" font-weight="600" fill="#89b4fa">Persona: Senior Systems Analyst</text>
+    <text x="135" y="395" font-size="13" fill="#cdd6f4" opacity="0.75">Explores dependencies</text>
   </g>
 
-  <!-- Phase 2: Plan -->
+  <!-- Phase 2 -->
   <g>
-    <rect x="180" y="400" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="225" cy="447" r="22" fill="#89b4fa"/>
-    <text x="225" y="454" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">2</text>
-    <text x="265" y="439" font-size="18" font-weight="700" fill="#cdd6f4">Analyze &amp; Plan</text>
-    <text x="265" y="462" font-size="13.5" fill="#89b4fa" font-weight="600">Persona: Lead Software Architect</text>
-    <text x="265" y="480" font-size="12.5" fill="#cdd6f4" opacity="0.8">master_plan.md &amp; file tree</text>
+    <rect x="50" y="430" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="95" cy="477" r="22" fill="#89b4fa"/>
+    <text x="95" y="484" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">2</text>
+    <text x="135" y="469" font-size="18" font-weight="700" fill="#cdd6f4">Analyze &amp; Plan</text>
+    <text x="135" y="492" font-size="13" font-weight="600" fill="#89b4fa">Persona: Lead Software Architect</text>
+    <text x="135" y="510" font-size="13" fill="#cdd6f4" opacity="0.75">Designs master_plan.md</text>
   </g>
 
-  <!-- Phase 3: Tasks -->
+  <!-- Phase 3 -->
   <g>
-    <rect x="180" y="515" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="225" cy="562" r="22" fill="#89b4fa"/>
-    <text x="225" y="569" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">3</text>
-    <text x="265" y="554" font-size="18" font-weight="700" fill="#cdd6f4">Break Down Tasks</text>
-    <text x="265" y="577" font-size="13.5" fill="#89b4fa" font-weight="600">Persona: Agile Scrum Master</text>
-    <text x="265" y="595" font-size="12.5" fill="#cdd6f4" opacity="0.8">Creates task.md execution steps</text>
+    <rect x="50" y="545" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="95" cy="592" r="22" fill="#89b4fa"/>
+    <text x="95" y="599" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">3</text>
+    <text x="135" y="584" font-size="18" font-weight="700" fill="#cdd6f4">Break Down Tasks</text>
+    <text x="135" y="607" font-size="13" font-weight="600" fill="#89b4fa">Persona: Agile Scrum Master</text>
+    <text x="135" y="625" font-size="13" fill="#cdd6f4" opacity="0.75">Generates execution backlog</text>
   </g>
 
-  <!-- Phase 4/5: Code & Validate -->
+  <!-- Phase 7 -->
   <g>
-    <rect x="180" y="630" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="225" cy="677" r="22" fill="#89b4fa"/>
-    <text x="225" y="683" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">4/5</text>
-    <text x="265" y="669" font-size="18" font-weight="700" fill="#cdd6f4">Code &amp; Validate</text>
-    <text x="265" y="692" font-size="13.5" fill="#89b4fa" font-weight="600">Persona: Staff Eng. / SDET</text>
-    <text x="265" y="710" font-size="12.5" fill="#cdd6f4" opacity="0.8">Implements source and runs tests</text>
+    <rect x="50" y="775" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="95" cy="822" r="22" fill="#89b4fa"/>
+    <text x="95" y="829" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">7</text>
+    <text x="135" y="814" font-size="18" font-weight="700" fill="#cdd6f4">Report</text>
+    <text x="135" y="837" font-size="13" font-weight="600" fill="#89b4fa">Persona: Technical Writer</text>
+    <text x="135" y="855" font-size="13" fill="#cdd6f4" opacity="0.75">Summarizes walkthrough results</text>
   </g>
 
-  <!-- Phase 7: Report -->
+  <!-- Phase 7.5 -->
   <g>
-    <rect x="180" y="745" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="225" cy="792" r="22" fill="#89b4fa"/>
-    <text x="225" y="799" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">7</text>
-    <text x="265" y="784" font-size="18" font-weight="700" fill="#cdd6f4">Report</text>
-    <text x="265" y="807" font-size="13.5" fill="#89b4fa" font-weight="600">Persona: Technical Writer</text>
-    <text x="265" y="825" font-size="12.5" fill="#cdd6f4" opacity="0.8">Summarizes walkthrough results</text>
+    <rect x="50" y="890" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
+    <circle cx="95" cy="937" r="22" fill="#89b4fa"/>
+    <text x="95" y="943" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">7.5</text>
+    <text x="135" y="929" font-size="18" font-weight="700" fill="#cdd6f4">Knowledge Archive</text>
+    <text x="135" y="952" font-size="13" font-weight="600" fill="#89b4fa">Persona: Librarian</text>
+    <text x="135" y="970" font-size="13" fill="#cdd6f4" opacity="0.75">Indexes new lessons into ChromaDB</text>
   </g>
 
-  <!-- Phase 7.5: Knowledge Archive -->
+  <!-- CODEX & GEMINI CARDS -->
+  <!-- Phase 4 -->
   <g>
-    <rect x="180" y="860" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
-    <circle cx="225" cy="907" r="22" fill="#a6e3a1"/>
-    <text x="225" y="913" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">7.5</text>
-    <text x="265" y="899" font-size="18" font-weight="700" fill="#cdd6f4">Knowledge Archive</text>
-    <text x="265" y="922" font-size="13.5" fill="#a6e3a1" font-weight="600">Persona: Librarian</text>
-    <text x="265" y="940" font-size="12.5" fill="#cdd6f4" opacity="0.8">Indexes lessons into ChromaDB</text>
+    <rect x="430" y="545" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="475" cy="592" r="22" fill="#a6e3a1"/>
+    <text x="475" y="599" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">4</text>
+    <text x="515" y="584" font-size="18" font-weight="700" fill="#cdd6f4">Execute Code</text>
+    <text x="515" y="607" font-size="13" font-weight="600" fill="#a6e3a1">Persona: Codex-Alex</text>
+    <text x="515" y="625" font-size="13" fill="#cdd6f4" opacity="0.75">Implements source files</text>
   </g>
 
-  <!-- Vertical flow arrows: worker column -->
-  <line x1="350" y1="265" x2="350" y2="285" stroke="#a6e3a1" stroke-width="2.5" stroke-dasharray="5,3"/>
-  <line x1="350" y1="380" x2="350" y2="400" stroke="#89b4fa" stroke-width="2.5"/>
-  <line x1="350" y1="495" x2="350" y2="515" stroke="#89b4fa" stroke-width="2.5"/>
-  <line x1="350" y1="610" x2="350" y2="630" stroke="#89b4fa" stroke-width="2.5"/>
-  <line x1="350" y1="725" x2="350" y2="745" stroke="#89b4fa" stroke-width="2.5"/>
-  <line x1="350" y1="840" x2="350" y2="860" stroke="#a6e3a1" stroke-width="2.5" stroke-dasharray="5,3"/>
-
-  <!-- ================= ADVISOR COLUMN ================= -->
-  <!-- Phase 2.5: Plan Review -->
+  <!-- Phase 5 -->
   <g>
-    <rect x="680" y="400" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="725" cy="447" r="22" fill="#f38ba8"/>
-    <text x="725" y="454" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">2.5</text>
-    <text x="765" y="439" font-size="18" font-weight="700" fill="#cdd6f4">Plan Review</text>
-    <text x="765" y="462" font-size="13.5" fill="#f38ba8" font-weight="600">Persona: Principal Architect</text>
-    <text x="765" y="480" font-size="12.5" fill="#cdd6f4" opacity="0.8">Audits master_plan.md (Mode 4)</text>
+    <rect x="430" y="660" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="475" cy="707" r="22" fill="#a6e3a1"/>
+    <text x="475" y="714" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">5</text>
+    <text x="515" y="699" font-size="18" font-weight="700" fill="#cdd6f4">Test &amp; Validate</text>
+    <text x="515" y="722" font-size="13" font-weight="600" fill="#a6e3a1">Persona: Gemini-Tester1</text>
+    <text x="515" y="740" font-size="13" fill="#cdd6f4" opacity="0.75">Runs and validates test suite</text>
+  </g>
+
+  <!-- CLAUDE CARDS -->
+  <!-- Phase 2.5 -->
+  <g>
+    <rect x="810" y="430" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="855" cy="477" r="22" fill="#f38ba8"/>
+    <text x="855" y="483" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">2.5</text>
+    <text x="895" y="469" font-size="18" font-weight="700" fill="#cdd6f4">Plan Review</text>
+    <text x="895" y="492" font-size="13" font-weight="600" fill="#f38ba8">Persona: Principal Architect</text>
+    <text x="895" y="510" font-size="13" fill="#cdd6f4" opacity="0.75">Audits architecture (Mode 4)</text>
   </g>
 
   <!-- Debug Escalate -->
   <g>
-    <rect x="680" y="515" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
-    <circle cx="725" cy="562" r="22" fill="#f38ba8"/>
-    <text x="725" y="569" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">⚡</text>
-    <text x="765" y="554" font-size="18" font-weight="700" fill="#cdd6f4">Debug Escalate</text>
-    <text x="765" y="577" font-size="13.5" fill="#f38ba8" font-weight="600">Persona: Expert Troubleshooter</text>
-    <text x="765" y="595" font-size="12.5" fill="#cdd6f4" opacity="0.8">Called if tests fail &gt; 2 times</text>
+    <rect x="810" y="545" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
+    <circle cx="855" cy="592" r="22" fill="#f38ba8"/>
+    <text x="855" y="599" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">⚡</text>
+    <text x="895" y="584" font-size="18" font-weight="700" fill="#cdd6f4">Debug Escalate</text>
+    <text x="895" y="607" font-size="13" font-weight="600" fill="#f38ba8">Persona: Expert Troubleshooter</text>
+    <text x="895" y="625" font-size="13" fill="#cdd6f4" opacity="0.75">Called if tests fail &gt; 2 times</text>
   </g>
 
-  <!-- Phase 6: Code Audit -->
+  <!-- Phase 6 -->
   <g>
-    <rect x="680" y="630" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
-    <circle cx="725" cy="677" r="22" fill="#f38ba8"/>
-    <text x="725" y="684" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">6</text>
-    <text x="765" y="669" font-size="18" font-weight="700" fill="#cdd6f4">Code Audit</text>
-    <text x="765" y="692" font-size="13.5" fill="#f38ba8" font-weight="600">Persona: Security Auditor</text>
-    <text x="765" y="710" font-size="12.5" fill="#cdd6f4" opacity="0.8">Checks diffs &amp; test results</text>
+    <rect x="810" y="660" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="855" cy="707" r="22" fill="#f38ba8"/>
+    <text x="855" y="714" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">6</text>
+    <text x="895" y="699" font-size="18" font-weight="700" fill="#cdd6f4">Code Audit</text>
+    <text x="895" y="722" font-size="13" font-weight="600" fill="#f38ba8">Persona: Security Auditor</text>
+    <text x="895" y="740" font-size="13" fill="#cdd6f4" opacity="0.75">Checks diffs &amp; validates quality</text>
   </g>
 
-  <!-- Connecting Lines between columns -->
-  <line x1="520" y1="447" x2="680" y2="447" stroke="#89b4fa" stroke-width="2.5" stroke-dasharray="5,5"/>
-  <line x1="680" y1="562" x2="520" y2="562" stroke="#f38ba8" stroke-width="2.5" stroke-dasharray="5,5"/>
-  <line x1="680" y1="677" x2="520" y2="677" stroke="#89b4fa" stroke-width="2.5" stroke-dasharray="5,5"/>
+  <!-- Vertical flow arrows: Antigravity column -->
+  <line x1="220" y1="295" x2="220" y2="315" stroke="#89b4fa" stroke-width="2.5"/>
+  <line x1="220" y1="410" x2="220" y2="430" stroke="#89b4fa" stroke-width="2.5"/>
+  <line x1="220" y1="525" x2="220" y2="545" stroke="#89b4fa" stroke-width="2.5"/>
+  <line x1="220" y1="870" x2="220" y2="890" stroke="#89b4fa" stroke-width="2.5"/>
+
+  <!-- Horizontal flows -->
+  <!-- Phase 2 (Antigravity) -> Phase 2.5 (Claude) -->
+  <path d="M 390 477 L 810 477" stroke="#f38ba8" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+  
+  <!-- Phase 3 (Antigravity) -> Phase 4 (Codex) -->
+  <path d="M 390 592 L 430 592" stroke="#a6e3a1" stroke-width="2" fill="none"/>
+  
+  <!-- Phase 4 (Codex) -> Phase 5 (Gemini) -->
+  <line x1="600" y1="640" x2="600" y2="660" stroke="#a6e3a1" stroke-width="2.5"/>
+
+  <!-- Phase 5 (Gemini) -> Phase 6 (Claude) -->
+  <path d="M 770 707 L 810 707" stroke="#f38ba8" stroke-width="2" fill="none"/>
+  
+  <!-- Phase 6 (Claude) -> Phase 7 (Antigravity) -->
+  <path d="M 810 737 C 600 780 450 822 390 822" stroke="#89b4fa" stroke-width="2" fill="none"/>
 
 </svg>
