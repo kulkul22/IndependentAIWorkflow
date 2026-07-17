@@ -1,0 +1,110 @@
+<svg viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <linearGradient id="workerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#89b4fa" />
+      <stop offset="100%" stop-color="#74c7ec" />
+    </linearGradient>
+    <linearGradient id="advisorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f38ba8" />
+      <stop offset="100%" stop-color="#eba0ac" />
+    </linearGradient>
+    <linearGradient id="systemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a6e3a1" />
+      <stop offset="100%" stop-color="#94e2d5" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="750" fill="#1e1e2e"/>
+
+  <text x="500" y="50" text-anchor="middle" font-size="32" font-weight="700" fill="#cdd6f4">Team Roles &amp; Personas</text>
+  <text x="500" y="75" text-anchor="middle" font-size="16" fill="#a6adc8">The agents and roles that drive the Hybrid Workflow</text>
+
+  <!-- Legend -->
+  <rect x="150" y="110" width="700" height="40" rx="8" fill="#313244" stroke="#45475a" stroke-width="1.5"/>
+  <rect x="220" y="120" width="20" height="20" rx="4" fill="url(#workerGrad)"/>
+  <text x="250" y="135" font-size="14" font-weight="600" fill="#cdd6f4">Antigravity (Worker)</text>
+
+  <rect x="420" y="120" width="20" height="20" rx="4" fill="url(#advisorGrad)"/>
+  <text x="450" y="135" font-size="14" font-weight="600" fill="#cdd6f4">Claude CLI (Advisor)</text>
+
+  <rect x="620" y="120" width="20" height="20" rx="4" fill="url(#systemGrad)"/>
+  <text x="650" y="135" font-size="14" font-weight="600" fill="#cdd6f4">Javis OS (System)</text>
+
+  <!-- Left Column: Phases 0-3 -->
+  <!-- Phase 0 -->
+  <rect x="80" y="190" width="380" height="90" rx="12" fill="#181825" stroke="url(#systemGrad)" stroke-width="3" filter="url(#softShadow)"/>
+  <circle cx="120" cy="235" r="24" fill="url(#systemGrad)"/>
+  <text x="120" y="242" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">0</text>
+  <text x="160" y="225" font-size="20" font-weight="700" fill="#a6e3a1">Brain Sync</text>
+  <text x="160" y="250" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Javis Daemon</text>
+  <text x="160" y="270" font-size="14" fill="#a6adc8">Injects context from Second Brain</text>
+
+  <!-- Phase 1 -->
+  <rect x="80" y="300" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
+  <circle cx="120" cy="345" r="24" fill="url(#workerGrad)"/>
+  <text x="120" y="352" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">1</text>
+  <text x="160" y="335" font-size="20" font-weight="700" fill="#89b4fa">Research</text>
+  <text x="160" y="360" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Senior Systems Analyst</text>
+  <text x="160" y="380" font-size="14" fill="#a6adc8">Gathers context and dependencies</text>
+
+  <!-- Phase 2 -->
+  <rect x="80" y="410" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
+  <circle cx="120" cy="455" r="24" fill="url(#workerGrad)"/>
+  <text x="120" y="462" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">2</text>
+  <text x="160" y="445" font-size="20" font-weight="700" fill="#89b4fa">Analyze &amp; Plan</text>
+  <text x="160" y="470" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Lead Software Architect</text>
+  <text x="160" y="490" font-size="14" fill="#a6adc8">Creates architecture &amp; file tree</text>
+
+  <!-- Phase 3 -->
+  <rect x="80" y="520" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
+  <circle cx="120" cy="565" r="24" fill="url(#workerGrad)"/>
+  <text x="120" y="572" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">3</text>
+  <text x="160" y="555" font-size="20" font-weight="700" fill="#89b4fa">Break Down Tasks</text>
+  <text x="160" y="580" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Agile Scrum Master</text>
+  <text x="160" y="600" font-size="14" fill="#a6adc8">Creates execution task list</text>
+
+  <!-- Right Column: Phases 2.5, 4-7.5 -->
+
+  <!-- Phase 2.5 -->
+  <rect x="540" y="190" width="380" height="90" rx="12" fill="#181825" stroke="url(#advisorGrad)" stroke-width="3" filter="url(#softShadow)"/>
+  <circle cx="580" cy="235" r="24" fill="url(#advisorGrad)"/>
+  <text x="580" y="242" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">2.5</text>
+  <text x="620" y="225" font-size="20" font-weight="700" fill="#f38ba8">Plan Review</text>
+  <text x="620" y="250" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Principal Architect</text>
+  <text x="620" y="270" font-size="14" fill="#a6adc8">Independent design validation</text>
+
+  <!-- Phase 4 & 5 -->
+  <rect x="540" y="300" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
+  <circle cx="580" cy="345" r="24" fill="url(#workerGrad)"/>
+  <text x="580" y="352" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">4/5</text>
+  <text x="620" y="335" font-size="20" font-weight="700" fill="#89b4fa">Execute &amp; Validate</text>
+  <text x="620" y="360" font-size="16" font-weight="600" fill="#cdd6f4">Personas: Staff Eng. / SDET</text>
+  <text x="620" y="380" font-size="14" fill="#a6adc8">Writes code and validates behavior</text>
+
+  <!-- Phase 6 -->
+  <rect x="540" y="410" width="380" height="90" rx="12" fill="#181825" stroke="url(#advisorGrad)" stroke-width="3" filter="url(#softShadow)"/>
+  <circle cx="580" cy="455" r="24" fill="url(#advisorGrad)"/>
+  <text x="580" y="462" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">6</text>
+  <text x="620" y="445" font-size="20" font-weight="700" fill="#f38ba8">Code Audit</text>
+  <text x="620" y="470" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Security Auditor</text>
+  <text x="620" y="490" font-size="14" fill="#a6adc8">Review diffs &amp; tests before merge</text>
+
+  <!-- Phase 7 & 7.5 -->
+  <rect x="540" y="520" width="380" height="90" rx="12" fill="#181825" stroke="url(#systemGrad)" stroke-width="3" stroke-dasharray="10,5" filter="url(#softShadow)"/>
+  <circle cx="580" cy="565" r="24" fill="url(#workerGrad)"/>
+  <text x="580" y="572" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">7</text>
+  <text x="620" y="555" font-size="20" font-weight="700" fill="#89b4fa">Report &amp; Archive</text>
+  <text x="620" y="580" font-size="16" font-weight="600" fill="#cdd6f4">Personas: Tech Writer / Librarian</text>
+  <text x="620" y="600" font-size="14" fill="#a6adc8">Updates vault for future Brain Sync</text>
+
+  <!-- Bottom Dashboard Server Banner -->
+  <rect x="250" y="650" width="500" height="60" rx="30" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+  <circle cx="280" cy="680" r="16" fill="#f9e2af"/>
+  <path d="M 275,680 L 280,672 L 285,680 L 280,688 Z" fill="#1e1e2e"/>
+  <text x="310" y="686" font-size="18" font-weight="700" fill="#cdd6f4">Web Dashboard Server (Port 8000)</text>
+  <text x="670" y="685" text-anchor="end" font-size="14" fill="#a6adc8">Real-time Monitoring</text>
+
+</svg>
