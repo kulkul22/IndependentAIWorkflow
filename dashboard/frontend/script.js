@@ -120,6 +120,11 @@ function initSSE() {
         document.getElementById('current-model').textContent = data.model;
         document.getElementById('current-status').textContent = data.status;
         
+        const workspaceEl = document.getElementById('workspace-info');
+        if (workspaceEl) {
+            workspaceEl.textContent = data.workspace ? `📂 Workspace: ${data.workspace}` : '📂 Workspace: Local (runs/outputs)';
+        }
+        
         renderTimeline(data.phase);
         
         // Render Kanban if tasks are present

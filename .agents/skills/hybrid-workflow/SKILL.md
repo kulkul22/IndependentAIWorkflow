@@ -35,6 +35,12 @@ After starting the dashboard and BEFORE starting Phase 1, present this table and
 ## Run Environment
 Create a unique directory `runs/run_<timestamp>/`. All generated artifacts and code must be placed INSIDE this run directory. Log all Advisor interactions to `runs/<run_id>/advisor_log.md`.
 
+### External Workspace Integration
+If the user specifies an external target workspace for the project, you MUST:
+1. Create `runs/<run_id>/run.json` containing `{"workspace_path": "<target_path>"}`.
+2. Create a directory junction named `outputs` inside `runs/<run_id>/` pointing to the `<target_path>` using the shell command `New-Item -ItemType Junction -Path runs/<run_id>/outputs -Value <target_path>`.
+All Phase 4 code execution will write to this junction, syncing directly to the external workspace while keeping Dashboard tracking intact.
+
 ## The 9 Specialized Phases
 
 ### Phase 0: Brain Sync (MỚI)
