@@ -82,6 +82,16 @@ def get_current_phase():
         except (OSError, UnicodeError, json.JSONDecodeError):
             pass
 
+    workspace_path = None
+    run_json_path = os.path.join(latest_run, 'run.json')
+    if os.path.exists(run_json_path):
+        try:
+            with open(run_json_path, 'r', encoding='utf-8') as f:
+                run_data = json.load(f)
+                workspace_path = run_data.get("workspace_path")
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            pass
+
     def state(phase, role, model, status):
         return {
             "request_title": request_title,
@@ -89,7 +99,8 @@ def get_current_phase():
             "role": role,
             "model": model,
             "status": status,
-            "tasks": tasks_data
+            "tasks": tasks_data,
+            "workspace": workspace_path
         }
 
     # Check for phase markers
