@@ -1,110 +1,148 @@
-<svg viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+<svg viewBox="0 0 1200 950" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
   <defs>
     <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
     </filter>
-    <linearGradient id="workerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#89b4fa" />
-      <stop offset="100%" stop-color="#74c7ec" />
-    </linearGradient>
-    <linearGradient id="advisorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f38ba8" />
-      <stop offset="100%" stop-color="#eba0ac" />
-    </linearGradient>
-    <linearGradient id="systemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a6e3a1" />
-      <stop offset="100%" stop-color="#94e2d5" />
-    </linearGradient>
   </defs>
 
-  <rect x="0" y="0" width="1000" height="750" fill="#1e1e2e"/>
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="950" fill="#1e1e2e"/>
 
-  <text x="500" y="50" text-anchor="middle" font-size="32" font-weight="700" fill="#cdd6f4">Team Roles &amp; Personas</text>
-  <text x="500" y="75" text-anchor="middle" font-size="16" fill="#a6adc8">The agents and roles that drive the Hybrid Workflow</text>
+  <text x="600" y="45" text-anchor="middle" font-size="32" font-weight="700" fill="#cdd6f4">Team Roles &amp; Personas</text>
+  <text x="600" y="70" text-anchor="middle" font-size="16" fill="#a6adc8" opacity="0.8">The specialized AI agents executing the Hybrid Workflow</text>
 
-  <!-- Legend -->
-  <rect x="150" y="110" width="700" height="40" rx="8" fill="#313244" stroke="#45475a" stroke-width="1.5"/>
-  <rect x="220" y="120" width="20" height="20" rx="4" fill="url(#workerGrad)"/>
-  <text x="250" y="135" font-size="14" font-weight="600" fill="#cdd6f4">Antigravity (Worker)</text>
+  <!-- ================= COLUMNS ================= -->
+  <!-- SYSTEM AI -->
+  <rect x="50" y="100" width="340" height="55" rx="14" fill="#a6e3a1" filter="url(#softShadow)"/>
+  <text x="220" y="125" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">SYSTEM AI</text>
+  <text x="220" y="145" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Javis OS · Automated Operations</text>
 
-  <rect x="420" y="120" width="20" height="20" rx="4" fill="url(#advisorGrad)"/>
-  <text x="450" y="135" font-size="14" font-weight="600" fill="#cdd6f4">Claude CLI (Advisor)</text>
+  <!-- WORKER AI -->
+  <rect x="430" y="100" width="340" height="55" rx="14" fill="#89b4fa" filter="url(#softShadow)"/>
+  <text x="600" y="125" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">WORKER AI</text>
+  <text x="600" y="145" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Antigravity IDE · Core Execution</text>
 
-  <rect x="620" y="120" width="20" height="20" rx="4" fill="url(#systemGrad)"/>
-  <text x="650" y="135" font-size="14" font-weight="600" fill="#cdd6f4">Javis OS (System)</text>
+  <!-- ADVISOR AI -->
+  <rect x="810" y="100" width="340" height="55" rx="14" fill="#f38ba8" filter="url(#softShadow)"/>
+  <text x="980" y="125" text-anchor="middle" font-size="19" font-weight="700" fill="#1e1e2e">ADVISOR AI</text>
+  <text x="980" y="145" text-anchor="middle" font-size="12" fill="#1e1e2e" opacity="0.8">Claude CLI · Review &amp; Debug</text>
 
-  <!-- Left Column: Phases 0-3 -->
+  <!-- ================= CARDS ================= -->
+
+  <!-- SYSTEM AI CARDS -->
   <!-- Phase 0 -->
-  <rect x="80" y="190" width="380" height="90" rx="12" fill="#181825" stroke="url(#systemGrad)" stroke-width="3" filter="url(#softShadow)"/>
-  <circle cx="120" cy="235" r="24" fill="url(#systemGrad)"/>
-  <text x="120" y="242" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">0</text>
-  <text x="160" y="225" font-size="20" font-weight="700" fill="#a6e3a1">Brain Sync</text>
-  <text x="160" y="250" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Javis Daemon</text>
-  <text x="160" y="270" font-size="14" fill="#a6adc8">Injects context from Second Brain</text>
+  <g>
+    <rect x="50" y="190" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="95" cy="225" r="22" fill="#a6e3a1"/>
+    <text x="95" y="232" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">0</text>
+    <text x="135" y="222" font-size="18" font-weight="700" fill="#cdd6f4">Brain Sync</text>
+    <text x="135" y="247" font-size="13" font-weight="600" fill="#a6e3a1">Persona: Javis Daemon</text>
+    <text x="135" y="265" font-size="13" fill="#cdd6f4" opacity="0.75">Retrieves context from Second Brain</text>
+  </g>
 
+  <!-- Phase 7.5 -->
+  <g>
+    <rect x="50" y="800" width="340" height="95" rx="16" fill="#313244" stroke="#a6e3a1" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
+    <circle cx="95" cy="835" r="22" fill="#a6e3a1"/>
+    <text x="95" y="841" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">7.5</text>
+    <text x="135" y="832" font-size="18" font-weight="700" fill="#cdd6f4">Knowledge Archive</text>
+    <text x="135" y="857" font-size="13" font-weight="600" fill="#a6e3a1">Persona: Librarian</text>
+    <text x="135" y="875" font-size="13" fill="#cdd6f4" opacity="0.75">Indexes new lessons into ChromaDB</text>
+  </g>
+
+  <!-- WORKER AI CARDS -->
   <!-- Phase 1 -->
-  <rect x="80" y="300" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
-  <circle cx="120" cy="345" r="24" fill="url(#workerGrad)"/>
-  <text x="120" y="352" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">1</text>
-  <text x="160" y="335" font-size="20" font-weight="700" fill="#89b4fa">Research</text>
-  <text x="160" y="360" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Senior Systems Analyst</text>
-  <text x="160" y="380" font-size="14" fill="#a6adc8">Gathers context and dependencies</text>
+  <g>
+    <rect x="430" y="190" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="475" cy="225" r="22" fill="#89b4fa"/>
+    <text x="475" y="232" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">1</text>
+    <text x="515" y="222" font-size="18" font-weight="700" fill="#cdd6f4">Research</text>
+    <text x="515" y="247" font-size="13" font-weight="600" fill="#89b4fa">Persona: Senior Systems Analyst</text>
+    <text x="515" y="265" font-size="13" fill="#cdd6f4" opacity="0.75">Explores context and dependencies</text>
+  </g>
 
   <!-- Phase 2 -->
-  <rect x="80" y="410" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
-  <circle cx="120" cy="455" r="24" fill="url(#workerGrad)"/>
-  <text x="120" y="462" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">2</text>
-  <text x="160" y="445" font-size="20" font-weight="700" fill="#89b4fa">Analyze &amp; Plan</text>
-  <text x="160" y="470" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Lead Software Architect</text>
-  <text x="160" y="490" font-size="14" fill="#a6adc8">Creates architecture &amp; file tree</text>
+  <g>
+    <rect x="430" y="315" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="475" cy="350" r="22" fill="#89b4fa"/>
+    <text x="475" y="357" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">2</text>
+    <text x="515" y="347" font-size="18" font-weight="700" fill="#cdd6f4">Analyze &amp; Plan</text>
+    <text x="515" y="372" font-size="13" font-weight="600" fill="#89b4fa">Persona: Lead Software Architect</text>
+    <text x="515" y="390" font-size="13" fill="#cdd6f4" opacity="0.75">Designs architecture blueprint</text>
+  </g>
 
   <!-- Phase 3 -->
-  <rect x="80" y="520" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
-  <circle cx="120" cy="565" r="24" fill="url(#workerGrad)"/>
-  <text x="120" y="572" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">3</text>
-  <text x="160" y="555" font-size="20" font-weight="700" fill="#89b4fa">Break Down Tasks</text>
-  <text x="160" y="580" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Agile Scrum Master</text>
-  <text x="160" y="600" font-size="14" fill="#a6adc8">Creates execution task list</text>
+  <g>
+    <rect x="430" y="440" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="475" cy="475" r="22" fill="#89b4fa"/>
+    <text x="475" y="482" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">3</text>
+    <text x="515" y="472" font-size="18" font-weight="700" fill="#cdd6f4">Break Down Tasks</text>
+    <text x="515" y="497" font-size="13" font-weight="600" fill="#89b4fa">Persona: Agile Scrum Master</text>
+    <text x="515" y="515" font-size="13" fill="#cdd6f4" opacity="0.75">Generates execution backlog</text>
+  </g>
 
-  <!-- Right Column: Phases 2.5, 4-7.5 -->
+  <!-- Phase 4/5 -->
+  <g>
+    <rect x="430" y="565" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="475" cy="600" r="22" fill="#89b4fa"/>
+    <text x="475" y="606" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">4/5</text>
+    <text x="515" y="597" font-size="18" font-weight="700" fill="#cdd6f4">Code &amp; Validate</text>
+    <text x="515" y="622" font-size="13" font-weight="600" fill="#89b4fa">Persona: Senior Staff Eng. / SDET</text>
+    <text x="515" y="640" font-size="13" fill="#cdd6f4" opacity="0.75">Implements source and runs tests</text>
+  </g>
 
+  <!-- Phase 7 -->
+  <g>
+    <rect x="430" y="800" width="340" height="95" rx="16" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="475" cy="835" r="22" fill="#89b4fa"/>
+    <text x="475" y="842" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">7</text>
+    <text x="515" y="832" font-size="18" font-weight="700" fill="#cdd6f4">Report</text>
+    <text x="515" y="857" font-size="13" font-weight="600" fill="#89b4fa">Persona: Technical Writer</text>
+    <text x="515" y="875" font-size="13" fill="#cdd6f4" opacity="0.75">Summarizes walkthrough results</text>
+  </g>
+
+  <!-- ADVISOR AI CARDS -->
   <!-- Phase 2.5 -->
-  <rect x="540" y="190" width="380" height="90" rx="12" fill="#181825" stroke="url(#advisorGrad)" stroke-width="3" filter="url(#softShadow)"/>
-  <circle cx="580" cy="235" r="24" fill="url(#advisorGrad)"/>
-  <text x="580" y="242" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">2.5</text>
-  <text x="620" y="225" font-size="20" font-weight="700" fill="#f38ba8">Plan Review</text>
-  <text x="620" y="250" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Principal Architect</text>
-  <text x="620" y="270" font-size="14" fill="#a6adc8">Independent design validation</text>
+  <g>
+    <rect x="810" y="315" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="855" cy="350" r="22" fill="#f38ba8"/>
+    <text x="855" y="356" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1e2e">2.5</text>
+    <text x="895" y="347" font-size="18" font-weight="700" fill="#cdd6f4">Plan Review</text>
+    <text x="895" y="372" font-size="13" font-weight="600" fill="#f38ba8">Persona: Principal Architect</text>
+    <text x="895" y="390" font-size="13" fill="#cdd6f4" opacity="0.75">Audits architecture (Mode 4)</text>
+  </g>
 
-  <!-- Phase 4 & 5 -->
-  <rect x="540" y="300" width="380" height="90" rx="12" fill="#181825" stroke="url(#workerGrad)" stroke-width="3" filter="url(#softShadow)"/>
-  <circle cx="580" cy="345" r="24" fill="url(#workerGrad)"/>
-  <text x="580" y="352" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">4/5</text>
-  <text x="620" y="335" font-size="20" font-weight="700" fill="#89b4fa">Execute &amp; Validate</text>
-  <text x="620" y="360" font-size="16" font-weight="600" fill="#cdd6f4">Personas: Staff Eng. / SDET</text>
-  <text x="620" y="380" font-size="14" fill="#a6adc8">Writes code and validates behavior</text>
+  <!-- Debug Escalate -->
+  <g>
+    <rect x="810" y="565" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" stroke-dasharray="8,5" filter="url(#softShadow)"/>
+    <circle cx="855" cy="600" r="22" fill="#f38ba8"/>
+    <text x="855" y="607" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">⚡</text>
+    <text x="895" y="597" font-size="18" font-weight="700" fill="#cdd6f4">Debug Escalate</text>
+    <text x="895" y="622" font-size="13" font-weight="600" fill="#f38ba8">Persona: Expert Troubleshooter</text>
+    <text x="895" y="640" font-size="13" fill="#cdd6f4" opacity="0.75">Called if tests fail &gt; 2 times</text>
+  </g>
 
   <!-- Phase 6 -->
-  <rect x="540" y="410" width="380" height="90" rx="12" fill="#181825" stroke="url(#advisorGrad)" stroke-width="3" filter="url(#softShadow)"/>
-  <circle cx="580" cy="455" r="24" fill="url(#advisorGrad)"/>
-  <text x="580" y="462" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">6</text>
-  <text x="620" y="445" font-size="20" font-weight="700" fill="#f38ba8">Code Audit</text>
-  <text x="620" y="470" font-size="16" font-weight="600" fill="#cdd6f4">Persona: Security Auditor</text>
-  <text x="620" y="490" font-size="14" fill="#a6adc8">Review diffs &amp; tests before merge</text>
+  <g>
+    <rect x="810" y="690" width="340" height="95" rx="16" fill="#313244" stroke="#f38ba8" stroke-width="2" filter="url(#softShadow)"/>
+    <circle cx="855" cy="725" r="22" fill="#f38ba8"/>
+    <text x="855" y="732" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">6</text>
+    <text x="895" y="722" font-size="18" font-weight="700" fill="#cdd6f4">Code Audit</text>
+    <text x="895" y="747" font-size="13" font-weight="600" fill="#f38ba8">Persona: Security Auditor</text>
+    <text x="895" y="765" font-size="13" fill="#cdd6f4" opacity="0.75">Checks diffs &amp; validates quality</text>
+  </g>
 
-  <!-- Phase 7 & 7.5 -->
-  <rect x="540" y="520" width="380" height="90" rx="12" fill="#181825" stroke="url(#systemGrad)" stroke-width="3" stroke-dasharray="10,5" filter="url(#softShadow)"/>
-  <circle cx="580" cy="565" r="24" fill="url(#workerGrad)"/>
-  <text x="580" y="572" text-anchor="middle" font-size="18" font-weight="700" fill="#1e1e2e">7</text>
-  <text x="620" y="555" font-size="20" font-weight="700" fill="#89b4fa">Report &amp; Archive</text>
-  <text x="620" y="580" font-size="16" font-weight="600" fill="#cdd6f4">Personas: Tech Writer / Librarian</text>
-  <text x="620" y="600" font-size="14" fill="#a6adc8">Updates vault for future Brain Sync</text>
-
-  <!-- Bottom Dashboard Server Banner -->
-  <rect x="250" y="650" width="500" height="60" rx="30" fill="#313244" stroke="#89b4fa" stroke-width="2" filter="url(#softShadow)"/>
-  <circle cx="280" cy="680" r="16" fill="#f9e2af"/>
-  <path d="M 275,680 L 280,672 L 285,680 L 280,688 Z" fill="#1e1e2e"/>
-  <text x="310" y="686" font-size="18" font-weight="700" fill="#cdd6f4">Web Dashboard Server (Port 8000)</text>
-  <text x="670" y="685" text-anchor="end" font-size="14" fill="#a6adc8">Real-time Monitoring</text>
+  <!-- Connecting Lines -->
+  <!-- 0 to 1 -->
+  <path d="M 390 237 L 430 237" stroke="#a6e3a1" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+  
+  <!-- Plan to Plan Review -->
+  <path d="M 770 362 L 810 362" stroke="#89b4fa" stroke-width="2" fill="none"/>
+  
+  <!-- Code to Debug Escalate -->
+  <path d="M 770 612 L 810 612" stroke="#f38ba8" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+  
+  <!-- 7 to 7.5 -->
+  <path d="M 430 847 L 390 847" stroke="#a6e3a1" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
 
 </svg>
