@@ -4,6 +4,8 @@ import os
 import re
 import subprocess
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 def redact_secrets(text: str) -> str:
     """Xóa các chuỗi nhạy cảm như API Keys, Passwords ra khỏi text."""
     text = re.sub(r'(sk-[a-zA-Z0-9]{20,})', '[REDACTED_API_KEY]', text)
@@ -25,8 +27,8 @@ def call_claude_cli(prompt: str) -> str:
         with open(temp_file, "w", encoding="utf-8") as f:
             f.write(prompt)
         
-        cmd = f'powershell -Command "$content = Get-Content -Raw -Path {temp_file}; $null | claude -p $content --print"'
-        result = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+        cmd = ['claude', '-p', prompt, '--print']
+        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
         
         if os.path.exists(temp_file):
             os.remove(temp_file)

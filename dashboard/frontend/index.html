@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Workflow Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hybrid AI Workflow</h1>
+            <p class="subtitle">Real-time Execution Progress Tracker</p>
+        </header>
+        
+        <div class="dashboard-card glass">
+            <div class="status-header">
+                <h2>Current Status</h2>
+                <div class="pulse-indicator"></div>
+            </div>
+            
+            <div class="current-info">
+                <div class="info-group request-title-group">
+                    <span class="label">Request</span>
+                    <span class="value request-title" id="request-title">Waiting for request...</span>
+                </div>
+                <div class="info-group">
+                    <span class="label">Phase</span>
+                    <span class="value" id="current-phase">--</span>
+                </div>
+                <div class="info-group">
+                    <span class="label">Role</span>
+                    <span class="value" id="current-role">--</span>
+                </div>
+                <div class="info-group">
+                    <span class="label">Model</span>
+                    <span class="value highlight" id="current-model">--</span>
+                </div>
+                <div class="info-group">
+                    <span class="label">Status</span>
+                    <span class="value" id="current-status">Waiting for data...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-split-layout">
+            <div class="timeline-container glass">
+                <h2>Workflow Phases</h2>
+                <div class="timeline" id="timeline">
+                    <!-- Timeline items injected via JS -->
+                </div>
+            </div>
+            
+            <div class="kanban-container glass">
+                <h2>Backlog & Sub-agents</h2>
+                <div class="kanban-board">
+                    <div class="kanban-column" id="col-todo">
+                        <h3 class="column-header">To do</h3>
+                        <div class="column-content"></div>
+                    </div>
+                    <div class="kanban-column" id="col-in_progress">
+                        <h3 class="column-header">Working on it</h3>
+                        <div class="column-content"></div>
+                    </div>
+                    <div class="kanban-column" id="col-in_test">
+                        <h3 class="column-header">In test</h3>
+                        <div class="column-content"></div>
+                    </div>
+                    <div class="kanban-column" id="col-stuck">
+                        <h3 class="column-header">Stuck</h3>
+                        <div class="column-content"></div>
+                    </div>
+                    <div class="kanban-column" id="col-done">
+                        <h3 class="column-header">Done</h3>
+                        <div class="column-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

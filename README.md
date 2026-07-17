@@ -1,12 +1,21 @@
-# Independent AI Workflow Orchestrator (Hybrid Edition)
+# Independent AI Workflow Orchestrator (Javis OS Edition)
 
 A fully autonomous, self-correcting multi-agent software development workflow powered by **Antigravity IDE (Worker)** + **Claude CLI (Advisor)** as an independent auditor and dynamic expert.
+
+✨ **[NEW] Javis OS Integration:** Features a local Obsidian-style Second Brain with Vector Search (RAG) powered by ChromaDB. The AI automatically recalls past contexts, project structures, and technical decisions before starting any task.
 
 ---
 
 ## Quick Start
 
+**1. Start the Javis Daemon (Knowledge Sync)**
+```powershell
+# Runs in the background to watch for changes in brain/vault/ and syncs to ChromaDB
+python scripts/javis_daemon.py
 ```
+
+**2. Trigger the Workflow**
+```text
 @hybrid-workflow "Describe your task here..."
 ```
 
@@ -28,6 +37,11 @@ At startup, you will be asked to choose one of four modes based on your API budg
 ## Workflow Phases
 
 ```text
+PHASE 0 ──────────────────────────────────────────────────────
+  Brain Sync
+  Agent  : Antigravity + ChromaDB RAG
+  Output : Context injected from brain/vault/
+
 PHASE 1 ──────────────────────────────────────────────────────
   Research
   Agent  : Antigravity
@@ -67,6 +81,11 @@ PHASE 7 ────────────────────────
   Report
   Agent  : Antigravity
   Output : walkthrough.md & advisor_log.md
+
+PHASE 7.5 ────────────────────────────────────────────────────
+  Knowledge Archiving
+  Agent  : Antigravity
+  Output : Saves walkthrough summary to brain/vault/projects/
 ```
 
 ## Workflow Architecture
@@ -79,11 +98,15 @@ PHASE 7 ────────────────────────
 
 ---
 
-## Output Directory Layout
-
-Each run gets its own isolated folder:
+## Directory Layout
 
 ```
+brain/
+├── chroma_db/                # Vector Database for Semantic Search
+├── vault/                    # Second Brain Markdown Files (Obsidian compatible)
+│   ├── content-ideas/
+│   ├── journal/
+│   └── projects/
 runs/
 └── run_YYYYMMDD_HHMMSS/
     ├── research_notes.md     # Phase 1 — research findings

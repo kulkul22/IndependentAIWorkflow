@@ -20,3 +20,8 @@ runs/
 # OS
 Thumbs.db
 .DS_Store
+
+# Bot Memory and Skills copied from TomAssistantKulBot
+MEMORY.md
+memory/
+.agents/skills/
