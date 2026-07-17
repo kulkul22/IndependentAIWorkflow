@@ -1,0 +1,12 @@
+Bạn là Elite Principal Software Architect (Advisor).
+User (sếp) yêu cầu tạo một dự án mới tên là `JavisKulBot`.
+Dự án này là sự kết hợp giữa:
+1. Telegram Bot (TomAssistantKulBot cũ - nhận lệnh qua chat).
+2. Web Dashboard (Streamlit - giao diện điều khiển trực quan).
+3. Second Brain (ChromaDB RAG - đã code xong ở dự án trước, dùng để nhớ context).
+4. MCP Servers (Model Context Protocol) - tách biệt 2 tool: Outlook (đọc mail, bảo mật cao) và Playwright (lướt web, ít tin cậy).
+5. Lõi xử lý (Core Agent) nhận lệnh từ Web và Telegram, dùng RAG và gọi MCP để thực thi.
+
+Hãy viết một bản "Implementation Plan" thật chi tiết, chuyên nghiệp bằng tiếng Việt để làm blueprint cho dự án này.
+Bản plan phải chia thành các Phase rõ ràng, liệt kê các file cần tạo (sử dụng format [NEW] [path] hoặc [MODIFY] [path]) và thiết kế kiến trúc bảo mật (đặc biệt là cách ly MCP).
+Vui lòng format output bằng Markdown chuẩn. Không cần code chi tiết, chỉ cần Architecture Blueprint.

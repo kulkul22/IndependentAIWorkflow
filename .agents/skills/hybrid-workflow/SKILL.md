@@ -38,7 +38,7 @@ Create a unique directory `runs/run_<timestamp>/`. All generated artifacts and c
 ### External Workspace Integration
 If the user specifies an external target workspace for the project, you MUST:
 1. Create `runs/<run_id>/run.json` containing `{"workspace_path": "<target_path>"}`.
-2. Create a directory junction named `outputs` inside `runs/<run_id>/` pointing to the `<target_path>` using the shell command `New-Item -ItemType Junction -Path runs/<run_id>/outputs -Value <target_path>`.
+2. Create a directory junction named `outputs` inside `runs/<run_id>/` pointing to the `<target_path>` using `python scripts/create_junction.py runs/<run_id>/outputs "<target_path>"`.
 All Phase 4 code execution will write to this junction, syncing directly to the external workspace while keeping Dashboard tracking intact.
 
 ## The 9 Specialized Phases
@@ -48,9 +48,11 @@ All Phase 4 code execution will write to this junction, syncing directly to the 
 
 ### Phase 1: Research (Persona: Senior Systems Analyst)
 - Use tools to research dependencies and domain context. Summarize in `research_notes.md`, kết hợp với context lấy được từ Phase 0.
+- **CRITICAL**: Delegate this phase to the Codex sub-agent (e.g., `codex-analyst`).
 
 ### Phase 2: Analyze & Plan (Persona: Lead Software Architect)
 - Create `master_plan.md` outlining architecture and file tree.
+- **CRITICAL**: Delegate this phase to the Codex sub-agent (e.g., `codex-architect`).
 
 ### Phase 2.5: Plan Review (Advisor as Principal Architect)
 - If Mode 4, call: `python scripts/call_advisor.py --mode architect --plan_path <path>`
@@ -64,11 +66,11 @@ All Phase 4 code execution will write to this junction, syncing directly to the 
 
 ### Phase 4: Execute Code (Persona: Senior Staff Engineer)
 - Write actual source code in `outputs/`. **Adhere to Escalation Rules if stuck.**
-- **CRITICAL**: You must simulate spawning sub-agents (e.g., `codex-alex`) to handle each task. Update `tasks.json` directly to change the assignee to the sub-agent's name and set status to `in_progress`. Upon completion, set status to `in_test` or `done`.
+- **CRITICAL**: You must simulate spawning sub-agents (e.g., `codex-alex`) to handle each task. Update `tasks.json` by running `python scripts/task_manager.py --file runs/<run_id>/tasks.json --task_id <id> --status in_progress --assignee codex-alex`. Upon completion, set status to `in_test` or `done`.
 
 ### Phase 5: Test & Validate (Persona: SDET)
 - Write tests and execute them. Save results to `test_results.txt`. **Adhere to Escalation Rules if tests persistently fail.**
-- **CRITICAL**: Simulate sub-agents (e.g., `gemini-tester1`) performing the testing. Update `tasks.json` to assign the test agents and set status to `in_test`, then `done` (or `stuck` if failed).
+- **CRITICAL**: Simulate sub-agents (e.g., `gemini-tester1`) performing the testing. Update `tasks.json` using `task_manager.py` to assign the test agents and set status to `in_test`, then `done` (or `stuck` if failed).
 
 ### Phase 6: Code Audit (Advisor as Security Auditor)
 - If Mode 2, 3, or 4, call: `python scripts/call_advisor.py --mode audit --diff_path <path> --test_results <path>`
