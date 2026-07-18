@@ -1,7 +1,7 @@
 import os
 import sys
 import time
-import subprocess
+import queue
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -9,54 +9,57 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 VAULT_DIR = os.path.join(PROJECT_ROOT, 'brain', 'vault')
-SYNC_SCRIPT = os.path.join(PROJECT_ROOT, 'scripts', 'brain_sync.py')
+
+# Import our refactored sync logic directly to keep models in RAM
+from brain_sync import get_collection, sync_files
 
 class VaultChangeHandler(FileSystemEventHandler):
-    def __init__(self):
+    def __init__(self, update_queue):
         super().__init__()
-        self.last_sync = 0
-        self.debounce_seconds = 5 # Prevent multiple syncs in a short time
+        self.update_queue = update_queue
 
     def on_modified(self, event):
         if not event.is_directory and event.src_path.endswith('.md'):
-            self.trigger_sync()
+            self.update_queue.put(event.src_path)
 
     def on_created(self, event):
         if not event.is_directory and event.src_path.endswith('.md'):
-            self.trigger_sync()
-
-    def trigger_sync(self):
-        current_time = time.time()
-        if current_time - self.last_sync > self.debounce_seconds:
-            self.last_sync = current_time
-            print("\n[DAEMON] Phát hiện thay đổi trong Vault. Đang gọi đồng bộ...")
-            try:
-                # Call sync script
-                subprocess.run([sys.executable, SYNC_SCRIPT], check=True)
-                print("[DAEMON] Đồng bộ hoàn tất.")
-            except subprocess.CalledProcessError as e:
-                print(f"[DAEMON] Lỗi khi chạy sync script: {e}")
-            except Exception as e:
-                print(f"[DAEMON] Lỗi không xác định: {e}")
+            self.update_queue.put(event.src_path)
 
 def start_daemon():
     print(f"Khởi động Javis Daemon giám sát thư mục: {VAULT_DIR}")
     
-    # Run initial sync
-    print("[DAEMON] Chạy đồng bộ lần đầu...")
-    try:
-        subprocess.run([sys.executable, SYNC_SCRIPT], check=True)
-    except Exception as e:
-        print(f"[DAEMON] Lỗi đồng bộ lần đầu: {e}")
-
-    event_handler = VaultChangeHandler()
+    # Initialize ChromaDB and ONNX Model ONCE
+    collection = get_collection()
+    update_queue = queue.Queue()
+    
+    event_handler = VaultChangeHandler(update_queue)
     observer = Observer()
     observer.schedule(event_handler, VAULT_DIR, recursive=True)
     observer.start()
     
+    # Initial full sync
+    print("[DAEMON] Chạy đồng bộ lần đầu (toàn bộ vault)...")
+    sync_files(collection, VAULT_DIR)
+    
     try:
         while True:
-            time.sleep(1)
+            # Batch process queue with a 15-second debounce window
+            time.sleep(15) 
+            
+            changed_files = set()
+            while not update_queue.empty():
+                try:
+                    path = update_queue.get_nowait()
+                    changed_files.add(path)
+                except queue.Empty:
+                    break
+            
+            if changed_files:
+                print(f"\n[DAEMON] Phát hiện {len(changed_files)} file thay đổi. Đang đồng bộ...")
+                sync_files(collection, VAULT_DIR, specific_files=list(changed_files))
+                print("[DAEMON] Đồng bộ hoàn tất.")
+                
     except KeyboardInterrupt:
         observer.stop()
         print("\n[DAEMON] Đã dừng Javis Daemon.")
