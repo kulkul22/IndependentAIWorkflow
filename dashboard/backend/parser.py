@@ -11,7 +11,7 @@ PHASE_DETAILS = {
     2.5: ("Principal Architect", "Claude", "Plan Review"),
     3: ("Agile Scrum Master", "Gemini", "Break Down Tasks"),
     4: ("Senior Staff Engineer", "Codex", "Execute Code"),
-    5: ("SDET", "Gemini", "Test & Validate"),
+    5: ("Orchestrator", "Antigravity IDE", "Test & Validate"),
     6: ("Advisor / Security Auditor", "Claude", "Code Audit"),
     7: ("Technical Writer", "Gemini", "Completed"),
 }

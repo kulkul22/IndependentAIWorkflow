@@ -4,7 +4,7 @@ const PHASES = [
     { id: 2.5, name: "Plan Review", role: "Principal Architect", model: "Claude" },
     { id: 3, name: "Break Down Tasks", role: "Agile Scrum Master", model: "Gemini" },
     { id: 4, name: "Execute Code", role: "Senior Staff Engineer", model: "Codex" },
-    { id: 5, name: "Test & Validate", role: "SDET", model: "Gemini" },
+    { id: 5, name: "Test & Validate", role: "Orchestrator", model: "Antigravity IDE" },
     { id: 6, name: "Code Audit", role: "Advisor / Security Auditor", model: "Claude" },
     { id: 7, name: "Final Report", role: "Technical Writer", model: "Gemini" }
 ];

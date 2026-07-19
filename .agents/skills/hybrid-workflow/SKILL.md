@@ -63,9 +63,10 @@ Create a unique directory `runs/run_<timestamp>/`. All generated artifacts and c
 - Run: `codex exec -a never -C "<TARGET_DIR>" "Execute Phase 4: Write source code in outputs/. Update tasks.json to mark assignee and status."`
 - **Adhere to Escalation Rules if the Codex execution fails or gets stuck.**
 
-### Phase 5: Test & Validate (Agent: codex-tester)
-- Do NOT roleplay this phase. You MUST delegate this to the Codex CLI.
-- Run: `codex exec -a never -C "<TARGET_DIR>" "Execute Phase 5: Write and run tests. Save to runs/<run_id>/test_results.txt. Update tasks.json."`
+### Phase 5: Test & Validate (Agent: Antigravity IDE / Orchestrator)
+- In this phase, YOU (the Orchestrator) are responsible for executing the tests, especially Browser/E2E testing, using your `browser_subagent` or other testing tools.
+- Write the test results to `runs/<run_id>/test_results.txt`.
+- If you find UI/UX issues or bugs during browser testing, you MUST delegate the bug fixing back to Codex CLI (`codex exec`) in Phase 4.
 - **Adhere to Escalation Rules if tests persistently fail.**
 
 ### Phase 6: Code Audit (Advisor as Security Auditor)
