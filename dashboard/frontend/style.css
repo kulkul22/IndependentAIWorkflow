@@ -176,6 +176,12 @@ h1 {
     box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
 }
 
+.timeline-item.phase-2-5.active::before {
+    background: #eab308;
+    border-color: #eab308;
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
+}
+
 .timeline-item.completed::before {
     background: #22c55e;
     border-color: #22c55e;

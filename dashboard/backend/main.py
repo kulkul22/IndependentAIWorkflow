@@ -1,12 +1,18 @@
 import asyncio
 import os
 import json
+import argparse
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from sse_starlette.sse import EventSourceResponse
 from parser import get_current_phase
+
+arg_parser = argparse.ArgumentParser()
+arg_parser.add_argument("--project_dir", default=None)
+args, _ = arg_parser.parse_known_args()
+PROJECT_DIR = args.project_dir or os.environ.get("PROJECT_DIR", ".")
 
 app = FastAPI(title="Hybrid Workflow Dashboard")
 
@@ -35,7 +41,7 @@ async def message_stream(request: Request):
         while True:
             if await request.is_disconnected():
                 break
-            current_state = get_current_phase()
+            current_state = get_current_phase(PROJECT_DIR)
             yield {
                 "event": "update",
                 "data": json.dumps(current_state)

@@ -23,6 +23,10 @@ function renderTimeline(currentPhase) {
             div.classList.add('active');
         }
         
+        if (phase.id === 2.5) {
+            div.classList.add('phase-2-5');
+        }
+        
         div.innerHTML = `
             <h3>Phase ${phase.id}: ${phase.name}</h3>
             <p>${phase.role} (${phase.model})</p>

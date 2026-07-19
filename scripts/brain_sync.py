@@ -1,15 +1,33 @@
 import os
 import glob
+import sqlite3
 import chromadb
 from chromadb.utils import embedding_functions
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 DB_DIR = os.path.join(PROJECT_ROOT, 'brain', 'chroma_db')
 
+def _enable_sqlite_wal_mode():
+    """Enable WAL before Chroma opens the persistent SQLite database."""
+    os.makedirs(DB_DIR, exist_ok=True)
+    database_path = os.path.join(DB_DIR, 'chroma.sqlite3')
+
+    with sqlite3.connect(database_path) as connection:
+        result = connection.execute("PRAGMA journal_mode=WAL").fetchone()
+
+    if not result or result[0].lower() != 'wal':
+        raise RuntimeError("Failed to enable SQLite WAL mode for ChromaDB")
+
 def get_collection():
     """Khởi tạo ChromaDB và Model 1 lần duy nhất để lưu trên RAM."""
     print("[RAG] Đang tải mô hình nhúng (Embedding Model) vào RAM. Vui lòng đợi...")
-    client = chromadb.PersistentClient(path=DB_DIR)
+    _enable_sqlite_wal_mode()
+    client = chromadb.PersistentClient(
+        path=DB_DIR,
+        settings=chromadb.Settings(
+            sqlite_wal_mode=True
+        )
+    )
     sentence_transformer_ef = embedding_functions.DefaultEmbeddingFunction()
     collection = client.get_or_create_collection(
         name="second_brain",

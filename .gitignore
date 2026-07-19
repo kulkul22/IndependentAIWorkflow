@@ -25,3 +25,6 @@ Thumbs.db
 MEMORY.md
 memory/
 .agents/skills/
+
+# ChromaDB runtime files
+brain/chroma_db/

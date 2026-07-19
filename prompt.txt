@@ -1,0 +1,1 @@
+Execute Phase 4: Write source code based on runs/run_20260717_1625/task.md and runs/run_20260717_1625/tasks.json. Use skill codex-coder. Update runs/run_20260717_1625/tasks.json to mark assignee and status (e.g. "in_progress", "done", "stuck"). Write the actual application source code in the project root directory (or as specified in the plan).

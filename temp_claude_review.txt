@@ -1,0 +1,40 @@
+Your diagnosis and proposed solution are **accurate and well-reasoned**. Here's my review:
+
+## ✓ Diagnosis is Correct
+- **Root cause identified**: Spawning `brain_sync.py` as a subprocess every 5s reloads the ONNX model (`all-MiniLM-L6-v2`) each time, causing RAM/CPU thrashing.
+- **ChromaDB + file locking**: Multiple concurrent syncs can deadlock via `FileLock` and conflict with IDE file watchers.
+
+## ✓ Proposed Solution is Sound
+
+**1. Long-running process** — Correct approach. Import `sync_vault` logic directly and initialize the embedding model **once** at daemon startup:
+```python
+# At module level in javis_daemon.py
+client = chromadb.PersistentClient(path=DB_DIR)
+embedding_fn = embedding_functions.DefaultEmbeddingFunction()
+collection = client.get_or_create_collection("second_brain", embedding_function=embedding_fn)
+```
+
+**2. Increase debounce to 30-60s** — Good. Consider a **queue-based batcher**: collect changed file paths during the debounce window, then sync only those specific files rather than re-scanning the entire vault.
+
+**3. Restrict watchdog scope** — Already correct (line 54: `observer.schedule(event_handler, VAULT_DIR, recursive=True)`). Just verify no `.md` files exist in sibling directories like `dashboard/`, `scripts/`, or AI agent output folders.
+
+## Edge Cases & Improvements
+
+1. **ChromaDB corruption on crash**: If the daemon dies mid-upsert, the SQLite DB may corrupt. Wrap sync in try/except and add a startup integrity check.
+
+2. **Batch updates**: Instead of upserting all vault files on every trigger, track which specific files changed and upsert only those. The current `glob` on line 33 re-processes the entire vault.
+
+3. **Graceful shutdown**: On `KeyboardInterrupt` (line 60), flush any pending ChromaDB writes before `observer.stop()`.
+
+4. **Remove `FileLock`**: Once you move to a single long-running process, the file lock becomes unnecessary—remove it to eliminate a deadlock vector.
+
+5. **Windows-specific**: ONNX runtime can be slower on Windows. Consider using `chromadb`'s built-in `ONNXMini_LM_L6_V2` with explicit `device="cpu"` to avoid GPU driver issues.
+
+## Better Alternative?
+For a production RAG pipeline on Windows, consider:
+- **Event-driven queue** (e.g., `queue.Queue`) instead of watchdog debounce.
+- **Incremental sync**: Hash file contents; skip upsert if unchanged.
+- **Separate process with IPC**: Run ChromaDB in a dedicated service (FastAPI endpoint or named pipe), so IDE file watchers don't conflict.
+
+Your plan is solid for immediate stabilization. Implement the long-running process first, then optimize batching if needed.
+Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
