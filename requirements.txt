@@ -1,0 +1,7 @@
+# Runtime dependencies for the workflow utilities and dashboard.
+fastapi
+uvicorn
+sse-starlette
+chromadb
+watchdog
+filelock

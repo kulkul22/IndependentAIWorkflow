@@ -11,7 +11,7 @@ You are the Orchestrator for the Hybrid AI Workflow project. The user has invoke
 
 ## Initialization
 Immediately when the user invokes this skill, you MUST start the dashboard server in the background:
-- Use the `run_command` tool to execute: `python dashboard/backend/main.py --project_dir "<TARGET_DIR>"` (do not wait for it to finish, it runs as a server).
+- Use the `run_command` tool to execute: `python dashboard/backend/main.py` (do not wait for it to finish, it runs as a server).
 - Inform the user that they can monitor the workflow at `http://localhost:8000/`.
 
 ## Modes of Execution (Budget-Based)
@@ -28,54 +28,72 @@ After starting the dashboard and BEFORE starting Phase 1, present this table and
 
 ## Escalation Rules (Phase 4 & 5 ONLY)
 - **Trigger:** If you encounter a bug or failing test and fail to fix it after 2 attempts, you MUST escalate to the Advisor unless you are in Mode 1 or 2.
-- **Action:** Run `python scripts/call_advisor.py --mode debug --error_log <path> --context_file <path> >> runs/<run_id>/advisor_log.md`
+- **Action:** Run `python scripts/call_advisor.py --mode debug --error_log <path> --context_file <path>`
 - **Cap:** You may only call the Advisor for debug escalation a **MAXIMUM OF 3 TIMES** per task run.
 - **Fallback:** If the `call_advisor.py` script fails, fallback to self-debugging but MUST log the failure in `runs/<run_id>/advisor_log.md`.
 
 ## Run Environment
 Create a unique directory `runs/run_<timestamp>/`. All generated artifacts and code must be placed INSIDE this run directory. Log all Advisor interactions to `runs/<run_id>/advisor_log.md`.
 
-## The 9 Specialized Phases
+### External Workspace Integration
+If the user specifies an external target workspace for the project, you MUST:
+1. Create `runs/<run_id>/run.json` containing `{"workspace_path": "<target_path>"}`.
+2. Create a directory junction named `outputs` inside `runs/<run_id>/` pointing to the `<target_path>` using `python scripts/create_junction.py runs/<run_id>/outputs "<target_path>"`.
+All Phase 4 code execution will write to this junction, syncing directly to the external workspace while keeping Dashboard tracking intact.
 
-**CRITICAL RULE FOR PROMPTING CODEX EXEC:** NEVER create temporary `.bat` files to avoid quote escaping issues. Instead, ALWAYS write the complex prompt content into a `.txt` file inside the `runs/<run_id>/` directory (e.g. `phase1_prompt.txt`), and then pass it to codex using standard input redirection: `Get-Content runs/<run_id>/phase1_prompt.txt | codex exec ...`.
+## The 9 Specialized Phases
 
 ### Phase 0: Brain Sync (MỚI)
 - Gọi script `python scripts/brain_rag.py "<từ khóa liên quan đến task>"` để nạp ngữ cảnh (context) từ Second Brain (ChromaDB) trước khi bắt đầu research. Đọc kỹ các ghi chú dự án cũ nếu có.
 
-### Phase 1: Research (Agent: codex-analyst)
-- Do NOT roleplay this phase. You MUST delegate this to the Codex CLI.
-- Run: `codex exec -a never -C "<TARGET_DIR>" "Execute Phase 1: Research. Use skill codex-analyst. Write findings into runs/<run_id>/research_notes.md"`
+### Phase 1: Research (Persona: Senior Systems Analyst)
+- Use tools to research dependencies and domain context. Summarize in `research_notes.md`, kết hợp với context lấy được từ Phase 0.
+- **CRITICAL**: Delegate this phase to the Codex sub-agent (e.g., `codex-analyst`).
 
-### Phase 2: Analyze & Plan (Agent: codex-architect)
-- Do NOT roleplay this phase. You MUST delegate this to the Codex CLI.
-- Run: `codex exec -a never -C "<TARGET_DIR>" "Execute Phase 2: Analyze & Plan. Use skill codex-architect. Write plan into runs/<run_id>/master_plan.md"`
+### Phase 2: Analyze & Plan (Persona: Lead Software Architect)
+- Create `master_plan.md` outlining architecture and file tree.
+- **CRITICAL**: Delegate this phase to the Codex sub-agent (e.g., `codex-architect`).
 
 ### Phase 2.5: Plan Review (Advisor as Principal Architect)
-- If Mode 4, call: `python scripts/call_advisor.py --mode architect --plan_path <path> >> runs/<run_id>/advisor_log.md`
+- If Mode 4, call: `python scripts/call_advisor.py --mode architect --plan_path <path>`
 - Revise the plan based on the Advisor's feedback.
 
-### Phase 3: Break Down Tasks (Agent: codex-scrum)
-- Do NOT roleplay this phase. You MUST delegate this to the Codex CLI.
-- Run: `codex exec -a never -C "<TARGET_DIR>" "Execute Phase 3: Break Down Tasks. Create task.md and tasks.json in runs/<run_id>/ as specified in the hybrid-workflow skill."`
+### Phase 2.7: Product UI Design (Persona: Product UI Designer)
+- Mandatory for every project with a user-facing interface.
+- Load and follow `product-ui-designer`.
+- Produce `ui_design_spec.md`, `ui_acceptance.json`, and `ui_prototype/` (or documented wireframes) before Phase 3.
+- Every frontend task created in Phase 3 must reference applicable `UI-ACC-*` IDs. Do not proceed on subjective requirements such as "modern" without observable acceptance criteria.
 
-### Phase 4: Execute Code (Agent: codex-coder)
-- Do NOT roleplay this phase. You MUST delegate this to the Codex CLI.
-- Run: `codex exec -a never -C "<TARGET_DIR>" "Execute Phase 4: Write source code in outputs/. Update tasks.json to mark assignee and status."`
-- **Adhere to Escalation Rules if the Codex execution fails or gets stuck.**
+### Phase 3: Break Down Tasks (Persona: Agile Scrum Master)
+- Create `task.md` outlining specific execution tasks `[ ]`.
+- **CRITICAL**: You MUST also create a `tasks.json` file representing the backlog. Use exact format:
+  `[{"id": "T1", "title": "Task Name", "assignee": null, "status": "todo", "priority": "high", "sp": 2}]`
+  Valid statuses: `todo`, `in_progress`, `in_test`, `stuck`, `done`.
 
-### Phase 5: Test & Validate (Agent: Antigravity IDE / Orchestrator)
-- In this phase, YOU (the Orchestrator) are responsible for executing the tests, especially Browser/E2E testing, using your `browser_subagent` or other testing tools.
-- Write the test results to `runs/<run_id>/test_results.txt`.
-- If you find UI/UX issues or bugs during browser testing, you MUST delegate the bug fixing back to Codex CLI (`codex exec`) in Phase 4.
-- **Adhere to Escalation Rules if tests persistently fail.**
+### Phase 4: Execute Code (Persona: Senior Staff Engineer)
+- Write actual source code in `outputs/`. **Adhere to Escalation Rules if stuck.**
+- **CRITICAL**: You must simulate spawning sub-agents (e.g., `codex-alex`) to handle each task. Update `tasks.json` by running `python scripts/task_manager.py --file runs/<run_id>/tasks.json --task_id <id> --status in_progress --assignee codex-alex`. Upon completion, set status to `in_test` or `done`.
+
+### Phase 5: Test & Validate (Persona: SDET)
+- Write tests and execute them. Save results to `test_results.txt`. **Adhere to Escalation Rules if tests persistently fail.**
+- **CRITICAL**: Use the testing worker pool `gemi-chi`, `gemi-lucy`, and `gemi-na`. Assign non-overlapping test scopes, update `tasks.json` through `task_manager.py`, and set each ticket to `in_test`, then `done` (or `stuck` if failed). Consolidate all command output into `test_results.txt` before Phase 6.
+
+### Phase 5.5: Visual QA (Persona: Independent Visual Auditor)
+- Mandatory for every project with a user-facing interface.
+- Load and follow `visual-qa-auditor`; inspect the running application rather than relying on DOM tests or source review.
+- Capture `visual_evidence/` at desktop (1440×900), tablet (768×1024), and mobile (390×844), update `ui_acceptance.json`, and write `visual_audit.md`.
+- This phase is fail-closed. Continue to Phase 6 only when `visual_audit.md` ends with `STATUS: APPROVED`. On rejection, return affected tickets to Phase 4 and rerun functional plus visual validation.
 
 ### Phase 6: Code Audit (Advisor as Security Auditor)
-- If Mode 2, 3, or 4, call: `python scripts/call_advisor.py --mode audit --diff_path <path> --test_results <path> >> runs/<run_id>/advisor_log.md`
+- If Mode 2, 3, or 4, call: `python scripts/call_advisor.py --mode audit --diff_path <path> --test_results <path>`
 - If REJECTED, fix issues and loop back to Phase 4 (up to 3 times).
 
-### Phase 7: Report (Agent: codex-writer)
-- Do NOT roleplay this phase. You MUST delegate this to the Codex CLI.
-- Run: `codex exec -a never -C "<TARGET_DIR>" "Execute Phase 7: Generate walkthrough.md summarizing the entire process."`
+### Phase 7: Report (Persona: Technical Writer)
+- Generate `walkthrough.md` summarizing the entire process, including how many times the Advisor was called (from `advisor_log.md`).
 
 ### Phase 7.5: Knowledge Archiving (Persona: Librarian)
 - Lưu một bản copy tóm tắt của `walkthrough.md` (hoặc các bài học, quy ước code mới) vào `brain/vault/projects/` để Daemon tự động index vào Second Brain cho các task sau này.
+
+
+## Skill execution contract
+Before starting a phase, load and follow docs/PHASE_SKILL_MATRIX.md and config/phase_skills.yaml. These files are the single source of truth for the executor, required skill, and artifact for every phase. Do not substitute an adjacent skill without recording an explicit exception in the run directory.

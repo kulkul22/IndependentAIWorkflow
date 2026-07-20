@@ -2,6 +2,7 @@ import os
 import glob
 import json
 import re
+from status import normalize_status
 
 
 PHASE_DETAILS = {
@@ -9,9 +10,11 @@ PHASE_DETAILS = {
     1: ("Senior Systems Analyst", "Codex", "Research"),
     2: ("Lead Software Architect", "Codex", "Analyze & Plan"),
     2.5: ("Principal Architect", "Claude", "Plan Review"),
+    2.7: ("Product UI Designer", "Codex", "Product UI Design"),
     3: ("Agile Scrum Master", "Gemini", "Break Down Tasks"),
     4: ("Senior Staff Engineer", "Codex", "Execute Code"),
     5: ("Orchestrator", "Antigravity IDE", "Test & Validate"),
+    5.5: ("Independent Visual Auditor", "Codex", "Visual QA"),
     6: ("Advisor / Security Auditor", "Claude", "Code Audit"),
     7: ("Technical Writer", "Gemini", "Completed"),
 }
@@ -182,6 +185,16 @@ def get_current_phase(project_dir=None):
         tasks_data = tasks_data.get('tasks', [])
     if not isinstance(tasks_data, list):
         tasks_data = []
+    tasks_data = [
+        {**task, 'status': normalize_status(task.get('status'))}
+        if isinstance(task, dict) else task
+        for task in tasks_data
+    ]
+
+    workspace_path = None
+    run_data = _read_json(os.path.join(latest_run, 'run.json'), {})
+    if isinstance(run_data, dict):
+        workspace_path = run_data.get('workspace_path')
 
     def dashboard_state(phase, details=None):
         role, model, status = PHASE_DETAILS[phase]
@@ -192,7 +205,8 @@ def get_current_phase(project_dir=None):
             "role": details.get('role', role),
             "model": details.get('model', model),
             "status": details.get('status', status),
-            "tasks": tasks_data
+            "tasks": tasks_data,
+            "workspace": workspace_path,
         }
 
     state_data = _read_json(os.path.join(latest_run, 'state.json'), {})
@@ -227,9 +241,11 @@ def get_current_phase(project_dir=None):
     # times prevents a stale later-phase artifact from masking a coding retry.
     artifact_phases = [
         ('walkthrough.md', 7),
+        ('visual_audit.md', 5.5),
         ('test_results.txt', 5),
         ('outputs', 4),
         ('task.md', 3),
+        ('ui_design_spec.md', 2.7),
         ('master_plan.md', 2),
         ('research_notes.md', 1),
     ]

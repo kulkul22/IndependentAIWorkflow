@@ -2,9 +2,11 @@ const PHASES = [
     { id: 1, name: "Research", role: "Senior Systems Analyst", model: "Codex" },
     { id: 2, name: "Analyze & Plan", role: "Lead Software Architect", model: "Codex" },
     { id: 2.5, name: "Plan Review", role: "Principal Architect", model: "Claude" },
+    { id: 2.7, name: "Product UI Design", role: "Product UI Designer", model: "Codex" },
     { id: 3, name: "Break Down Tasks", role: "Agile Scrum Master", model: "Gemini" },
     { id: 4, name: "Execute Code", role: "Senior Staff Engineer", model: "Codex" },
-    { id: 5, name: "Test & Validate", role: "Orchestrator", model: "Antigravity IDE" },
+    { id: 5, name: "Test & Validate", role: "SDET", model: "Gemini" },
+    { id: 5.5, name: "Visual QA", role: "Independent Visual Auditor", model: "Codex" },
     { id: 6, name: "Code Audit", role: "Advisor / Security Auditor", model: "Claude" },
     { id: 7, name: "Final Report", role: "Technical Writer", model: "Gemini" }
 ];
@@ -12,21 +14,17 @@ const PHASES = [
 function renderTimeline(currentPhase) {
     const timelineEl = document.getElementById('timeline');
     timelineEl.innerHTML = '';
-    
+
     PHASES.forEach(phase => {
         const div = document.createElement('div');
         div.className = 'timeline-item';
-        
+
         if (phase.id < currentPhase) {
             div.classList.add('completed');
         } else if (phase.id === currentPhase) {
             div.classList.add('active');
         }
-        
-        if (phase.id === 2.5) {
-            div.classList.add('phase-2-5');
-        }
-        
+
         div.innerHTML = `
             <h3>Phase ${phase.id}: ${phase.name}</h3>
             <p>${phase.role} (${phase.model})</p>
@@ -50,7 +48,7 @@ function renderKanban(tasks) {
     if (!tasks || !tasks.length) return;
 
     tasks.forEach(task => {
-        const status = task.status || 'todo';
+        const status = normalizeStatus(task.status);
         const targetCol = columns[status] || columns['todo'];
 
         const card = document.createElement('div');
@@ -96,8 +94,21 @@ function renderKanban(tasks) {
     });
 }
 
+
+function normalizeStatus(value) {
+    const aliases = {
+        processing: 'in_progress', working: 'in_progress',
+        coding: 'in_progress', inprogress: 'in_progress',
+        qa: 'in_test', test: 'in_test', testing: 'in_test',
+        completed: 'done', complete: 'done', finished: 'done'
+    };
+    const normalized = String(value || 'todo').trim().toLowerCase()
+        .replace(/[ -]+/g, '_');
+    return aliases[normalized] || normalized || 'todo';
+}
+
 function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
+    return str.replace(/[&<>'"]/g,
         tag => ({
             '&': '&amp;',
             '<': '&lt;',
@@ -110,22 +121,27 @@ function escapeHTML(str) {
 
 function initSSE() {
     const eventSource = new EventSource('/api/stream');
-    
+
     eventSource.onmessage = function(event) {
         // Fallback for general messages if any
     };
 
     eventSource.addEventListener('update', function(event) {
         const data = JSON.parse(event.data);
-        
+
         document.getElementById('request-title').textContent = data.request_title || 'Untitled request';
         document.getElementById('current-phase').textContent = data.phase > 0 ? `Phase ${data.phase}` : 'Bootstrapping';
         document.getElementById('current-role').textContent = data.role;
         document.getElementById('current-model').textContent = data.model;
         document.getElementById('current-status').textContent = data.status;
-        
+
+        const workspaceEl = document.getElementById('workspace-info');
+        if (workspaceEl) {
+            workspaceEl.textContent = data.workspace ? `📂 Workspace: ${data.workspace}` : '📂 Workspace: Local (runs/outputs)';
+        }
+
         renderTimeline(data.phase);
-        
+
         // Render Kanban if tasks are present
         if (data.tasks) {
             renderKanban(data.tasks);

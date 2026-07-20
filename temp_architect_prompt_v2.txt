@@ -1,0 +1,118 @@
+Sếp (the user) just added a Dashboard feature with a FastAPI backend and HTML/JS frontend to view a workflow's progress real-time using SSE (Server-Sent Events).
+The frontend loads perfectly, but the timeline doesn't seem to update over time (it just stays stuck at Phase 4).
+Please analyze the code below and tell me what the bugs/issues might be, or explain why it's not updating.
+
+Here is `dashboard/backend/main.py`:
+```python
+import asyncio
+import os
+import json
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from sse_starlette.sse import EventSourceResponse
+from parser import get_current_phase
+
+app = FastAPI(title="Hybrid Workflow Dashboard")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+frontend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend'))
+app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_index():
+    index_file = os.path.join(frontend_path, 'index.html')
+    if os.path.exists(index_file):
+        with open(index_file, 'r', encoding='utf-8') as f:
+            return f.read()
+    return "Frontend not built yet."
+
+@app.get("/api/stream")
+async def message_stream(request: Request):
+    async def event_generator():
+        while True:
+            if await request.is_disconnected():
+                break
+            current_state = get_current_phase()
+            yield {
+                "event": "update",
+                "data": json.dumps(current_state)
+            }
+            await asyncio.sleep(2)
+    return EventSourceResponse(event_generator())
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+```
+
+And `dashboard/backend/parser.py`:
+```python
+import os
+import glob
+import json
+import re
+
+def _read_text(path):
+    # ... handles file reading
+    pass
+
+def _get_request_title(run_path):
+    # ... extracts title
+    pass
+
+def get_current_phase():
+    runs_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'runs'))
+    run_folders = sorted(glob.glob(os.path.join(runs_dir, 'run_*')), reverse=True)
+    if not run_folders:
+        return {
+            "request_title": "No request found",
+            "phase": 0,
+            "role": "None",
+            "model": "None",
+            "status": "No runs found",
+        }
+
+    latest_run = run_folders[0]
+    request_title = _get_request_title(latest_run)
+
+    def state(phase, role, model, status):
+        return {
+            "request_title": request_title,
+            "phase": phase,
+            "role": role,
+            "model": model,
+            "status": status,
+        }
+
+    # Check for phase markers
+    if os.path.exists(os.path.join(latest_run, 'walkthrough.md')):
+        return state(7, "Technical Writer", "Gemini", "Completed")
+    if os.path.exists(os.path.join(latest_run, 'advisor_log.md')):
+        if os.path.exists(os.path.join(latest_run, 'task.md')) or os.path.exists(os.path.join(latest_run, 'test_results.txt')) or os.path.exists(os.path.join(latest_run, 'outputs')):
+            return state(6, "Advisor / Security Auditor", "Claude", "Code Audit")
+        else:
+            return state(2.5, "Principal Architect", "Claude", "Plan Review")
+    if os.path.exists(os.path.join(latest_run, 'test_results.txt')):
+        return state(5, "SDET", "Gemini", "Test & Validate")
+    if os.path.exists(os.path.join(latest_run, 'outputs')):
+        return state(4, "Senior Staff Engineer", "Codex", "Execute Code")
+    if os.path.exists(os.path.join(latest_run, 'task.md')):
+        return state(3, "Agile Scrum Master", "Gemini", "Break Down Tasks")
+    if os.path.exists(os.path.join(latest_run, 'master_plan.md')):
+        return state(2, "Lead Software Architect", "Codex", "Analyze & Plan")
+    if os.path.exists(os.path.join(latest_run, 'research_notes.md')):
+        return state(1, "Senior Systems Analyst", "Codex", "Research")
+
+    return state(0, "Global", "System", "Bootstrapping")
+```
+
+What could be the reason the UI timeline isn't moving past Phase 4? The reason the dashboard is stuck at Phase 4 is because the `if/else` logic in `get_current_phase()` evaluates from top to bottom. Once `os.path.exists(os.path.join(latest_run, 'outputs'))` is true, the function returns immediately, effectively "short-circuiting" the check for higher-numbered phases (like 5, 6, or 7) that might have been reached later. To fix this, you should order your checks from the highest phase number to the lowest.

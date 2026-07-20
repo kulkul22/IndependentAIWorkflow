@@ -40,18 +40,24 @@ At startup, you will be asked to choose one of four modes based on your API budg
 ```text
 PHASE 0 ──────────────────────────────────────────────────────
   Brain Sync
-  Agent  : Antigravity + ChromaDB RAG
+  Agent  : Codex + ChromaDB RAG
   Output : Context injected from brain/vault/
 
 PHASE 1 ──────────────────────────────────────────────────────
   Research
-  Agent  : Antigravity
+  Agent  : Codex
   Output : research_notes.md
 
 PHASE 2 ──────────────────────────────────────────────────────
   Analyze & Plan
-  Agent  : Antigravity
+  Agent  : Codex
   Output : master_plan.md
+
+PHASE 2.7 (User-facing projects)
+  Product UI Design
+  Agent  : Codex using product-ui-designer
+  Gate   : design spec, acceptance IDs, and desktop/mobile prototype required
+  Output : ui_design_spec.md, ui_acceptance.json, ui_prototype/
 
 PHASE 2.5 (Mode 4 only) ──────────────────────────────────────
   Plan Review
@@ -65,11 +71,17 @@ PHASE 3 ────────────────────────
 
 PHASE 4 & 5 ──────────────────────────────────────────────────
   Execute Code, Test & Validate
-  Agent  : Antigravity
+  Agent  : Codex (Phase 4), Antigravity (Phase 5)
   Logic  : Write code -> Run tests
   Escalate (Modes 3, 4): If tests fail > 2 times -> Call Claude CLI (Debug Mode) 
                          context-compressed -> Fix code -> Loop (Max 3 limits)
   Output : outputs/ (source files) & test_results.txt
+
+PHASE 5.5 (User-facing projects)
+  Live Visual QA
+  Agent  : Codex using visual-qa-auditor
+  Gate   : browser evidence at desktop/tablet/mobile and STATUS: APPROVED
+  Output : visual_audit.md, visual_evidence/, updated ui_acceptance.json
 
 PHASE 6 (Modes 2, 3, 4 only) ─────────────────────────────────
   Code Audit
@@ -95,7 +107,7 @@ PHASE 7.5 ───────────────────────�
 
 ## Team Roles & Personas
 
-![Team Roles Workflow](docs/assets/team_roles.svg)
+![Team Roles Workflow](docs/assets/team_roles.svg?v=2)
 
 ---
 

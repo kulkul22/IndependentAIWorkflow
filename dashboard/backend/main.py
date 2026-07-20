@@ -16,9 +16,13 @@ PROJECT_DIR = args.project_dir or os.environ.get("PROJECT_DIR", ".")
 
 app = FastAPI(title="Hybrid Workflow Dashboard")
 
+_allowed_origins = [origin.strip() for origin in os.environ.get(
+    "DASHBOARD_ALLOW_ORIGINS", "http://127.0.0.1:8000,http://localhost:8000"
+).split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -51,4 +55,7 @@ async def message_stream(request: Request):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    host = os.environ.get("DASHBOARD_HOST", "127.0.0.1")
+    port = int(os.environ.get("DASHBOARD_PORT", "8000"))
+    reload = os.environ.get("DASHBOARD_RELOAD", "false").lower() == "true"
+    uvicorn.run("main:app", host=host, port=port, reload=reload)

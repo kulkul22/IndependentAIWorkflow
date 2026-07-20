@@ -24,7 +24,11 @@ Thumbs.db
 # Bot Memory and Skills copied from TomAssistantKulBot
 MEMORY.md
 memory/
-.agents/skills/
+.agents/skills/*
+!.agents/skills/product-ui-designer/
+!.agents/skills/product-ui-designer/**
+!.agents/skills/visual-qa-auditor/
+!.agents/skills/visual-qa-auditor/**
 
-# ChromaDB runtime files
-brain/chroma_db/
+# Local runtime logs
+dashboard/*.log
