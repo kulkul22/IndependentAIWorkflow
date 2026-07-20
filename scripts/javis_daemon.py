@@ -25,6 +25,10 @@ class VaultChangeHandler(FileSystemEventHandler):
         if not event.is_directory and event.src_path.endswith('.md'):
             self.trigger_sync()
 
+    def on_deleted(self, event):
+        if not event.is_directory and event.src_path.lower().endswith('.md'):
+            self.trigger_sync()
+
     def trigger_sync(self):
         current_time = time.time()
         if current_time - self.last_sync > self.debounce_seconds:

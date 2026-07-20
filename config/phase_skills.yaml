@@ -1,0 +1,82 @@
+# Single source of truth for phase execution.
+# `agent` is the executor surface; `skill` is the required workflow guidance.
+phases:
+  0:
+    name: context_bootstrap
+    agent: codex
+    skill: null
+    command: python scripts/brain_rag.py
+  1:
+    name: research
+    agent: codex
+    skill: codex-analyst
+    artifact: research_notes.md
+  2:
+    name: plan
+    agent: codex
+    skill: codex-architect
+    artifact: master_plan.md
+  2.5:
+    name: plan_review
+    agent: claude
+    skill: advisor-architect
+    artifact: advisor_log.md
+  2.7:
+    name: product_ui_design
+    agent: codex
+    skill: product-ui-designer
+    artifacts:
+      - ui_design_spec.md
+      - ui_acceptance.json
+      - ui_prototype/
+  3:
+    name: task_breakdown
+    agent: agy
+    skill: triage
+    artifact: task.md
+  4:
+    name: execute
+    agent: codex
+    skill: codex-coder
+    artifact: outputs/
+    max_parallel_workers: 3
+    worker_pool:
+      - codex-tu
+      - codex-loc
+      - codex-mao
+      - codex-thong
+      - codex-lien
+  5:
+    name: test_validate
+    agent: agy
+    skill: tdd
+    artifact: test_results.txt
+    max_parallel_workers: 3
+    worker_pool:
+      - gemi-chi
+      - gemi-lucy
+      - gemi-na
+  5.5:
+    name: visual_qa
+    agent: codex
+    skill: visual-qa-auditor
+    artifacts:
+      - visual_audit.md
+      - visual_evidence/
+      - ui_acceptance.json
+    required_status: APPROVED
+  6:
+    name: audit
+    agent: claude
+    skill: advisor-auditor
+    artifact: audit_report.md
+  7:
+    name: report
+    agent: agy
+    skill: technical-change-tracker
+    artifact: walkthrough.md
+  7.5:
+    name: archive
+    agent: agy
+    skill: null
+    command: python scripts/brain_sync.py

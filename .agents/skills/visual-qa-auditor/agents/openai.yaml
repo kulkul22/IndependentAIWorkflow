@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visual QA Auditor"
+  short_description: "Audit live interfaces with visual evidence"
+  default_prompt: "Use $visual-qa-auditor to inspect the live interface and issue a visual approval decision."

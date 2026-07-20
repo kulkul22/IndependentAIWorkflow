@@ -58,6 +58,12 @@ All Phase 4 code execution will write to this junction, syncing directly to the 
 - If Mode 4, call: `python scripts/call_advisor.py --mode architect --plan_path <path>`
 - Revise the plan based on the Advisor's feedback.
 
+### Phase 2.7: Product UI Design (Persona: Product UI Designer)
+- Mandatory for every project with a user-facing interface.
+- Load and follow `product-ui-designer`.
+- Produce `ui_design_spec.md`, `ui_acceptance.json`, and `ui_prototype/` (or documented wireframes) before Phase 3.
+- Every frontend task created in Phase 3 must reference applicable `UI-ACC-*` IDs. Do not proceed on subjective requirements such as "modern" without observable acceptance criteria.
+
 ### Phase 3: Break Down Tasks (Persona: Agile Scrum Master)
 - Create `task.md` outlining specific execution tasks `[ ]`.
 - **CRITICAL**: You MUST also create a `tasks.json` file representing the backlog. Use exact format:
@@ -70,7 +76,13 @@ All Phase 4 code execution will write to this junction, syncing directly to the 
 
 ### Phase 5: Test & Validate (Persona: SDET)
 - Write tests and execute them. Save results to `test_results.txt`. **Adhere to Escalation Rules if tests persistently fail.**
-- **CRITICAL**: Simulate sub-agents (e.g., `gemini-tester1`) performing the testing. Update `tasks.json` using `task_manager.py` to assign the test agents and set status to `in_test`, then `done` (or `stuck` if failed).
+- **CRITICAL**: Use the testing worker pool `gemi-chi`, `gemi-lucy`, and `gemi-na`. Assign non-overlapping test scopes, update `tasks.json` through `task_manager.py`, and set each ticket to `in_test`, then `done` (or `stuck` if failed). Consolidate all command output into `test_results.txt` before Phase 6.
+
+### Phase 5.5: Visual QA (Persona: Independent Visual Auditor)
+- Mandatory for every project with a user-facing interface.
+- Load and follow `visual-qa-auditor`; inspect the running application rather than relying on DOM tests or source review.
+- Capture `visual_evidence/` at desktop (1440×900), tablet (768×1024), and mobile (390×844), update `ui_acceptance.json`, and write `visual_audit.md`.
+- This phase is fail-closed. Continue to Phase 6 only when `visual_audit.md` ends with `STATUS: APPROVED`. On rejection, return affected tickets to Phase 4 and rerun functional plus visual validation.
 
 ### Phase 6: Code Audit (Advisor as Security Auditor)
 - If Mode 2, 3, or 4, call: `python scripts/call_advisor.py --mode audit --diff_path <path> --test_results <path>`
@@ -81,3 +93,7 @@ All Phase 4 code execution will write to this junction, syncing directly to the 
 
 ### Phase 7.5: Knowledge Archiving (Persona: Librarian)
 - Lưu một bản copy tóm tắt của `walkthrough.md` (hoặc các bài học, quy ước code mới) vào `brain/vault/projects/` để Daemon tự động index vào Second Brain cho các task sau này.
+
+
+## Skill execution contract
+Before starting a phase, load and follow docs/PHASE_SKILL_MATRIX.md and config/phase_skills.yaml. These files are the single source of truth for the executor, required skill, and artifact for every phase. Do not substitute an adjacent skill without recording an explicit exception in the run directory.

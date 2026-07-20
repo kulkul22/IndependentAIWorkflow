@@ -2,9 +2,11 @@ const PHASES = [
     { id: 1, name: "Research", role: "Senior Systems Analyst", model: "Codex" },
     { id: 2, name: "Analyze & Plan", role: "Lead Software Architect", model: "Codex" },
     { id: 2.5, name: "Plan Review", role: "Principal Architect", model: "Claude" },
+    { id: 2.7, name: "Product UI Design", role: "Product UI Designer", model: "Codex" },
     { id: 3, name: "Break Down Tasks", role: "Agile Scrum Master", model: "Gemini" },
     { id: 4, name: "Execute Code", role: "Senior Staff Engineer", model: "Codex" },
     { id: 5, name: "Test & Validate", role: "SDET", model: "Gemini" },
+    { id: 5.5, name: "Visual QA", role: "Independent Visual Auditor", model: "Codex" },
     { id: 6, name: "Code Audit", role: "Advisor / Security Auditor", model: "Claude" },
     { id: 7, name: "Final Report", role: "Technical Writer", model: "Gemini" }
 ];
@@ -46,7 +48,7 @@ function renderKanban(tasks) {
     if (!tasks || !tasks.length) return;
 
     tasks.forEach(task => {
-        const status = task.status || 'todo';
+        const status = normalizeStatus(task.status);
         const targetCol = columns[status] || columns['todo'];
 
         const card = document.createElement('div');
@@ -90,6 +92,19 @@ function renderKanban(tasks) {
 
         targetCol.appendChild(card);
     });
+}
+
+
+function normalizeStatus(value) {
+    const aliases = {
+        processing: 'in_progress', working: 'in_progress',
+        coding: 'in_progress', inprogress: 'in_progress',
+        qa: 'in_test', test: 'in_test', testing: 'in_test',
+        completed: 'done', complete: 'done', finished: 'done'
+    };
+    const normalized = String(value || 'todo').trim().toLowerCase()
+        .replace(/[ -]+/g, '_');
+    return aliases[normalized] || normalized || 'todo';
 }
 
 function escapeHTML(str) {

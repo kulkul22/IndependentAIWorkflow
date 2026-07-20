@@ -6,6 +6,12 @@ import subprocess
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+DEFAULT_TIMEOUTS = {
+    "architect": 180,
+    "debug": 120,
+    "audit": 180,
+}
+
 def redact_secrets(text: str) -> str:
     """Xóa các chuỗi nhạy cảm như API Keys, Passwords ra khỏi text."""
     text = re.sub(r'(sk-[a-zA-Z0-9]{20,})', '[REDACTED_API_KEY]', text)
@@ -24,37 +30,28 @@ def is_safe_path(filepath: str) -> bool:
             return False
     return True
 
-def call_claude_cli(prompt: str) -> str:
-    """Gọi Claude CLI cục bộ (Công cụ cài sẵn của máy). Chú ý tốn API Credits."""
-    temp_file = "temp_advisor_prompt.txt"
+def call_claude_cli(prompt: str, timeout: int = 180) -> str:
+    """Call Claude and fail closed when the advisor is unavailable."""
     try:
-        with open(temp_file, "w", encoding="utf-8") as f:
-            f.write(prompt)
-        
-        cmd = ['claude', '-p', prompt, '--print']
-<<<<<<< Updated upstream
-        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
-        return result.stdout.strip()
-=======
-        try:
-            # Set a 30s timeout so the workflow doesn't hang if proxy is stuck
-            result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', timeout=30)
-            output = result.stdout.strip()
-        except subprocess.TimeoutExpired:
-            print("Warning: Advisor API timed out. Skipping step...")
-            output = "STATUS: APPROVED (SKIPPED DUE TO API TIMEOUT)"
-            
-        if os.path.exists(temp_file):
-            os.remove(temp_file)
-            
-        return output
->>>>>>> Stashed changes
-    except Exception as e:
-        return f"ERROR_CALLING_ADVISOR_CLI: {str(e)}"
-    finally:
-        if os.path.exists(temp_file):
-            os.remove(temp_file)
+        result = subprocess.run(
+            ['claude', '--print'],
+            input=prompt,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            timeout=timeout,
+            check=False,
+        )
+    except subprocess.TimeoutExpired:
+        return f"ERROR_ADVISOR_TIMEOUT_AFTER_{timeout}S"
+    except OSError as exc:
+        return f"ERROR_ADVISOR_UNAVAILABLE: {exc}"
 
+    output = result.stdout.strip()
+    if result.returncode != 0:
+        detail = result.stderr.strip() or output or "unknown advisor failure"
+        return f"ERROR_ADVISOR_EXIT_{result.returncode}: {detail}"
+    return output or "ERROR_ADVISOR_EMPTY_RESPONSE"
 def load_skill_prompt(skill_name: str) -> str:
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     skill_path = os.path.join(base_dir, '.agents', 'skills', skill_name, 'SKILL.md')
@@ -90,7 +87,7 @@ def check_budget(target_file: str):
     except Exception:
         pass
 
-def handle_architect_mode(plan_path: str):
+def handle_architect_mode(plan_path: str, timeout: int = DEFAULT_TIMEOUTS["architect"]):
     check_budget(plan_path)
     if not os.path.exists(plan_path):
         print(f"Error: Plan file not found at {plan_path}")
@@ -105,12 +102,12 @@ def handle_architect_mode(plan_path: str):
     prompt = f"{skill_prompt}\n\nPLAN CONTENT:\n{content}"
     
     print("Calling AI Advisor (Architect Mode via Claude CLI)...")
-    feedback = call_claude_cli(prompt)
+    feedback = call_claude_cli(prompt, timeout=timeout)
     print("\n--- ADVISOR FEEDBACK ---\n")
     print(feedback)
     print("\n------------------------\n")
 
-def handle_debug_mode(error_log_path: str, context_file: str):
+def handle_debug_mode(error_log_path: str, context_file: str, timeout: int = DEFAULT_TIMEOUTS["debug"]):
     check_budget(error_log_path)
     if not os.path.exists(error_log_path):
         print(f"Error: Error log not found at {error_log_path}")
@@ -138,12 +135,12 @@ def handle_debug_mode(error_log_path: str, context_file: str):
     prompt = f"{skill_prompt}\n\nERROR DATA:\n{payload}"
     
     print("Calling AI Advisor (Debug Mode via Claude CLI)...")
-    feedback = call_claude_cli(prompt)
+    feedback = call_claude_cli(prompt, timeout=timeout)
     print("\n--- ADVISOR GUIDANCE ---\n")
     print(feedback)
     print("\n------------------------\n")
 
-def handle_audit_mode(diff_path: str, test_results: str):
+def handle_audit_mode(diff_path: str, test_results: str, timeout: int = DEFAULT_TIMEOUTS["audit"]):
     check_budget(diff_path if diff_path else test_results)
     diff_content = ""
     test_content = ""
@@ -162,7 +159,7 @@ def handle_audit_mode(diff_path: str, test_results: str):
     prompt = f"{skill_prompt}\n\nPAYLOAD:\n{payload}"
     
     print("Calling AI Advisor (Audit Mode via Claude CLI)...")
-    feedback = call_claude_cli(prompt)
+    feedback = call_claude_cli(prompt, timeout=timeout)
     print("\n--- ADVISOR AUDIT RESULT ---\n")
     print(feedback)
     print("\n------------------------\n")
@@ -175,12 +172,17 @@ if __name__ == "__main__":
     parser.add_argument("--context_file", help="Path to relevant code file (for debug mode)")
     parser.add_argument("--diff_path", help="Path to git diff or output snapshot (for audit mode)")
     parser.add_argument("--test_results", help="Path to test results (for audit mode)")
+    parser.add_argument("--timeout", type=int, help="Override mode timeout in seconds")
     
     args = parser.parse_args()
     
+    timeout = args.timeout or DEFAULT_TIMEOUTS[args.mode]
+    if timeout <= 0:
+        parser.error("--timeout must be greater than zero")
+
     if args.mode == "architect":
-        handle_architect_mode(args.plan_path)
+        handle_architect_mode(args.plan_path, timeout)
     elif args.mode == "debug":
-        handle_debug_mode(args.error_log, args.context_file)
+        handle_debug_mode(args.error_log, args.context_file, timeout)
     elif args.mode == "audit":
-        handle_audit_mode(args.diff_path, args.test_results)
+        handle_audit_mode(args.diff_path, args.test_results, timeout)

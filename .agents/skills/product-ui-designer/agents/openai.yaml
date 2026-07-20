@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product UI Designer"
+  short_description: "Create evidence-backed product UI specifications"
+  default_prompt: "Use $product-ui-designer to define the visual direction and acceptance artifacts for this interface."

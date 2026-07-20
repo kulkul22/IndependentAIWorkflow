@@ -15,9 +15,9 @@ def run_phase(run_id, state, config):
     test_file = os.path.join(get_run_path(run_id), "test_report.md")
     audit_file = os.path.join(get_run_path(run_id), "audit_report.md")
     
-    plan = ""
-    test = ""
-    audit = ""
+    plan = open(plan_file, "r", encoding="utf-8").read() if os.path.exists(plan_file) else ""
+    test = open(test_file, "r", encoding="utf-8").read() if os.path.exists(test_file) else ""
+    audit = open(audit_file, "r", encoding="utf-8").read() if os.path.exists(audit_file) else ""
     
     research_file = os.path.join(get_run_path(run_id), "research_notes.md")
     research = ""

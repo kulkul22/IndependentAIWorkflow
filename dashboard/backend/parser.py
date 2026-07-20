@@ -2,6 +2,7 @@ import os
 import glob
 import json
 import re
+from status import normalize_status
 
 
 def _read_text(path):
@@ -53,13 +54,14 @@ def _get_request_title(run_path):
     return 'Untitled request'
 
 
-def get_current_phase():
+def get_current_phase(project_dir=None):
     """
     Scans the parent directory (runs) for the most recent run_ folder.
     Determines the current phase based on the presence of specific files.
     """
     # Go up from dashboard/backend/parser.py to runs/
-    runs_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'runs'))
+    project_dir = project_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    runs_dir = os.path.join(os.path.abspath(project_dir), 'runs')
     run_folders = sorted(glob.glob(os.path.join(runs_dir, 'run_*')), reverse=True)
     if not run_folders:
         return {
@@ -82,6 +84,13 @@ def get_current_phase():
         except (OSError, UnicodeError, json.JSONDecodeError):
             pass
 
+    if isinstance(tasks_data, list):
+        tasks_data = [
+            {**task, 'status': normalize_status(task.get('status'))}
+            if isinstance(task, dict) else task
+            for task in tasks_data
+        ]
+
     workspace_path = None
     run_json_path = os.path.join(latest_run, 'run.json')
     if os.path.exists(run_json_path):
@@ -103,9 +112,26 @@ def get_current_phase():
             "workspace": workspace_path
         }
 
+
+    state_path = os.path.join(latest_run, "state.json")
+    if os.path.exists(state_path):
+        try:
+            persisted = json.loads(_read_text(state_path))
+            phase = float(persisted.get("current_phase", 0))
+            if phase.is_integer():
+                phase = int(phase)
+            if phase in (1, 2, 2.5, 2.7, 3, 4, 5, 5.5, 6, 7):
+                role = persisted.get("role", "")
+                model = persisted.get("model", "")
+                status = persisted.get("phase_status") or persisted.get("status") or "Running"
+                return state(phase, role, model, status)
+        except (TypeError, ValueError, json.JSONDecodeError):
+            pass
     # Check for phase markers
     if os.path.exists(os.path.join(latest_run, 'walkthrough.md')):
         return state(7, "Technical Writer", "Gemini", "Completed")
+    if os.path.exists(os.path.join(latest_run, 'visual_audit.md')):
+        return state(5.5, "Independent Visual Auditor", "Codex", "Visual QA")
     if os.path.exists(os.path.join(latest_run, 'advisor_log.md')):
         if os.path.exists(os.path.join(latest_run, 'task.md')) or os.path.exists(os.path.join(latest_run, 'test_results.txt')) or os.path.exists(os.path.join(latest_run, 'outputs')):
             return state(6, "Advisor / Security Auditor", "Claude", "Code Audit")
@@ -117,6 +143,8 @@ def get_current_phase():
         return state(4, "Senior Staff Engineer", "Codex", "Execute Code")
     if os.path.exists(os.path.join(latest_run, 'task.md')):
         return state(3, "Agile Scrum Master", "Gemini", "Break Down Tasks")
+    if os.path.exists(os.path.join(latest_run, 'ui_design_spec.md')):
+        return state(2.7, "Product UI Designer", "Codex", "Product UI Design")
     if os.path.exists(os.path.join(latest_run, 'master_plan.md')):
         return state(2, "Lead Software Architect", "Codex", "Analyze & Plan")
     if os.path.exists(os.path.join(latest_run, 'research_notes.md')):
